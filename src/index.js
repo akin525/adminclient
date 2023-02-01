@@ -30,6 +30,7 @@ ReactDOM.render(
       <Route path="/" exact component={Auth} />
       <Route path="/dashboard" exact component={Admin} />
       <Route path="/fund" exact component={Admin} />
+      <Route path="/product" exact component={Admin} />
       <Route path="/airtime" exact component={Admin} />
       <Route path="/createlock" exact component={Admin} />
       <Route path="/tv" exact component={Admin} />

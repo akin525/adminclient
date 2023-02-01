@@ -26,6 +26,7 @@ import Addlock from "views/admin/addlock.js";
 import Alluser from "../views/admin/alluser";
 import Profile from "../views/admin/profile";
 import Find from "../views/admin/finduser";
+import Product from "../views/admin/product";
 
 export default function Admin() {
   return (
@@ -54,6 +55,7 @@ export default function Admin() {
             <Route path="/admin/maps" exact component={Maps} />
             <Route path="/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
+            <Route path="/product" exact component={Product} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />
