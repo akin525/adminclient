@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import axios from "axios";
 import gh from 'lg.png'
+import swal from "sweetalert";
 
 export default function Product({color}) {
     const [userid, setuserid] = useState("");
@@ -11,6 +12,7 @@ export default function Product({color}) {
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
     const baseURL2 = "https://admin.savebills.com.ng/api/auth/product";
+    const baseURL = "https://admin.savebills.com.ng/api/auth/switch";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);
@@ -20,6 +22,54 @@ export default function Product({color}) {
     const handleSearch = event => {
         setSearchTerm(event.target.value);
     };
+
+    const handleInputChange = (e) => {
+        const {id , value} = e.target;
+
+        if(id === "id"){
+            setid(value);
+        }
+
+    }
+    const swi  = async () =>  {
+
+        try {
+            axios
+                .post(baseURL, {
+                id:id
+                })
+                .then(response => {
+                    setError("");
+                    setMessage(response);
+                    if (response.data.status == "0") {
+                        setError(response.data.message);
+                        swal({
+                            title: "Ooops",
+                            text: response.data.message,
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        })
+
+
+                    }else{
+                        swal({
+                            title: "Success",
+                            text: response.data.message,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        })
+
+                    }
+                    // setPost(response.data);
+                });
+        }catch (e) {
+            console.log(e);
+            console.log("e.data");
+            console.log(e.data);
+            setError("An error occured. Check your input and try again");
+        }
+    }
+
 
     React.useEffect(() => {
         setLoading(true);
@@ -219,7 +269,10 @@ export default function Product({color}) {
                                                 <tr key={datab.id}>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <label className="switch">
-                                                            <input type="checkbox" checked={datab.status === "1"}/>
+                                                            <input type="checkbox"  checked={datab.status == "1"}
+                                                                   value={datab.status} onChange = {(e) => handleInputChange(e)} id="ide"
+                                                                  onClick={swi}
+                                                            />
                                                             <span className="slider"></span>
                                                         </label>
                                                     </td>
