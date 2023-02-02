@@ -8,7 +8,7 @@ export default function Product({color}) {
     const [userid, setuserid] = useState("");
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
-    const [id,setid] = useState("");
+    const [id1,setid1] = useState("");
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
     const baseURL2 = "https://admin.savebills.com.ng/api/auth/product";
@@ -26,8 +26,8 @@ export default function Product({color}) {
     const handleInputChange = (e) => {
         const {id , value} = e.target;
 
-        if(id === "id"){
-            setid(value);
+        if(id === "id1"){
+            setid1(value);
         }
 
     }
@@ -36,7 +36,7 @@ export default function Product({color}) {
         try {
             axios
                 .post(baseURL, {
-                id:id
+                id:id1,
                 })
                 .then(response => {
                     setError("");
@@ -270,7 +270,7 @@ export default function Product({color}) {
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <label className="switch">
                                                             <input type="checkbox"  checked={datab.status == "1"}
-                                                                   value={datab.status} onChange = {(e) => handleInputChange(e)} id="ide"
+                                                                   value={datab.status} onChange = {(e) => handleInputChange(e)} id="id1"
                                                                   onClick={swi}
                                                             />
                                                             <span className="slider"></span>
