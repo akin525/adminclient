@@ -27,7 +27,7 @@ import Alluser from "../views/admin/alluser";
 import Profile from "../views/admin/profile";
 import Find from "../views/admin/finduser";
 import Product from "../views/admin/product";
-
+import Notification from "../views/admin/notification";
 export default function Admin() {
   return (
     <>
@@ -52,6 +52,7 @@ export default function Admin() {
             <Route path="/createlock" exact component={Createlock} />
             <Route path="/finduser" exact component={Find} />
             <Route path="/allock" exact component={Addlock} />
+            <Route path="/notification" exact component={Notification} />
             <Route path="/admin/maps" exact component={Maps} />
             <Route path="/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
