@@ -320,9 +320,9 @@ export default function Purchase({color}) {
                         <div className="block w-full overflow-x-auto">
                             {/* Projects table */}
 
-                            {loading ? <div className="loader-container">
-                                    <div className="spinner"/>
-                                </div> :
+                            {loading ?<div className="overlay">
+                                    <div className="loader"></div>
+                                </div>:
                                 <table className="items-center w-full bg-transparent border-collapse">
                                     <thead>
                                     <tr>

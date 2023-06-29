@@ -31,14 +31,16 @@ export default function Product({color}) {
         }
 
     }
-    const swi  = async () =>  {
+    const swi  = async (value) =>  {
+        setLoading(true);
 
         try {
             axios
                 .post(baseURL, {
-                id:id1,
+                id:value,
                 })
                 .then(response => {
+                    setLoading(false)
                     setError("");
                     setMessage(response);
                     if (response.data.status == "0") {
@@ -57,7 +59,10 @@ export default function Product({color}) {
                             text: response.data.message,
                             icon: "success",
                             confirmButtonText: "OK",
-                        })
+                        }).then(function () {
+                            window.location.href = "/product";
+
+                        });
 
                     }
                     // setPost(response.data);
@@ -157,9 +162,9 @@ export default function Product({color}) {
                         <div className="block w-full overflow-x-auto">
                             {/* Projects table */}
 
-                            {loading ? <div className="loader-container">
-                                    <div className="spinner"/>
-                                </div> :
+                            {loading ? <div className="overlay">
+                                    <div className="loader"></div>
+                                </div>:
                                 <table className="items-center w-full bg-transparent border-collapse">
                                     <thead>
                                     <tr>
@@ -267,15 +272,23 @@ export default function Product({color}) {
                                     <tbody>
                                         {filteredData.map(datab => (
                                                 <tr key={datab.id}>
+                                                    {datab.status == "1" ?
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <label className="switch">
-                                                            <input type="checkbox"  checked={datab.status == "1"}
-                                                                   value={datab.status} onChange = {(e) => handleInputChange(e)} id="id1"
-                                                                  onClick={swi}
+                                                            <input type="checkbox"  checked
+                                                                   onClick={()=>swi(datab.id)}
                                                             />
                                                             <span className="slider"></span>
                                                         </label>
-                                                    </td>
+                                                    </td>:
+                                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                        <label className="switch">
+                                                        <input type="checkbox"
+                                                        onClick={()=>swi(datab.id)}
+                                                        />
+                                                        <span className="slider"></span>
+                                                        </label>
+                                                        </td>}
                                                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                                                     <span
                                                         className={

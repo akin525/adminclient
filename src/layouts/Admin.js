@@ -28,6 +28,10 @@ import Profile from "../views/admin/profile";
 import Find from "../views/admin/finduser";
 import Product from "../views/admin/product";
 import Notification from "../views/admin/notification";
+import Mreport from "../views/admin/mreport";
+import wreport from "../views/admin/wreport";
+import dreport from "../views/admin/dreport";
+import Pending from "../views/admin/pending";
 export default function Admin() {
   return (
     <>
@@ -56,7 +60,11 @@ export default function Admin() {
             <Route path="/admin/maps" exact component={Maps} />
             <Route path="/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
+            <Route path="/mreport" exact component={Mreport} />
+            <Route path="/wreport" exact component={wreport} />
+            <Route path="/dreport" exact component={dreport} />
             <Route path="/product" exact component={Product} />
+            <Route path="/pending" exact component={Pending} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />

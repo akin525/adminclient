@@ -194,8 +194,8 @@ export default function Funduser({color}) {
             <div className="block w-full overflow-x-auto">
                 {/* Projects table */}
 
-                {loading ? <div className="loader-container">
-                        <div className="spinner"/>
+                {loading ?<div className="overlay">
+                        <div className="loader"></div>
                     </div>:
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>

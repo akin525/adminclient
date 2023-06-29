@@ -1,5 +1,4 @@
 
-
 import React, {useState, useEffect } from "react";
 import axios from "axios";
 import swal from "sweetalert";
@@ -111,8 +110,8 @@ export default function Dashboard() {
     };
     return (
     <>
-        {loading ? <div className="loader-container">
-                <div className="spinner"/>
+        {loading ? <div className="overlay">
+                <div className="loader"></div>
             </div> :
             <div className="flex flex-wrap">
                 <div className="w-full lg:w-3/12 xl:w-2/12 px-4 mb-3">

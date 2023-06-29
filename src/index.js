@@ -36,11 +36,15 @@ ReactDOM.render(
       <Route path="/tv" exact component={Admin} />
       <Route path="/allock" exact component={Admin} />
       <Route path="/elect" exact component={Admin} />
+      <Route path="/mreport" exact component={Admin} />
+      <Route path="/wreport" exact component={Admin} />
+      <Route path="/dreport" exact component={Admin} />
       <Route path="/notification" exact component={Admin} />
       <Route path="/data" exact component={Admin} />
       <Route path="/purchase" exact component={Admin} />
       <Route path="/deposit" exact component={Admin} />
       <Route path="/finduser" exact component={Admin} />
+      <Route path="/pending" exact component={Admin} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
     </Switch>
