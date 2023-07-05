@@ -14,7 +14,9 @@ import CardStats from "../../components/Cards/CardStats";
 import gh from "../../lg.png";
 
 export default function Mreport({color}) {
-    const baseURL = "https://admin.savebills.com.ng/api/auth/report";
+    const baseURLD = "https://admin.savebills.com.ng/api/auth/dreport";
+    const baseURLW = "https://admin.savebills.com.ng/api/auth/wreport";
+    const baseURLM = "https://admin.savebills.com.ng/api/auth/report";
     const [date, setdate] = useState("0");
     const [name, setName] = useState("");
     const [airtime, setairtime] = useState("0");
@@ -47,35 +49,6 @@ export default function Mreport({color}) {
             setName(value);
         }
     }
-    React.useEffect(() => {
-        setLoading(true);
-        axios
-            .post(baseURL, {
-                date:currentMonth,
-
-            }).then(response => {
-            setError("");
-            setMessage(response);
-            setairtime(response.data.airtimes);
-            setairtimec(response.data.airtimec);
-            setdata(response.data.datems);
-            setdatac(response.data.datamc);
-            setName(response.data.date)
-            settv(response.data.tv)
-            settvc(response.data.tvc)
-            setelect(response.data.elect)
-            setelectc(response.data.electc)
-            if (response.data.status ==="0"){
-                window.location='auth/login';
-            }
-            console.log(response.data);
-
-            setMessage(response.data.message);
-
-            setLoading(false);
-        });
-
-    }, []);
     //
     // const handleInputChange = (e) => {
     //     const {id , value} = e.target;
@@ -84,11 +57,59 @@ export default function Mreport({color}) {
     //         setdate(value);
     //     }
     // }
-    const handleSubmit  = async () =>  {
+    const handleSubmitdaily  = async () =>  {
         setLoading(true);
 
         axios
-            .post(baseURL, {
+            .post(baseURLD, {
+                date:name,
+
+            }).then(response => {
+            setError("");
+            setMessage(response);
+            setairtime(response.data.airtimes);
+            setairtimec(response.data.airtimec);
+            setdata(response.data.datems);
+            setdatac(response.data.datamc);
+            setName(response.data.date);
+            console.log(response.data);
+
+            setMessage(response.data.message);
+
+            setLoading(false);
+        });
+    }
+
+    const handleSubmitweekly  = async () =>  {
+        setLoading(true);
+
+        axios
+            .post(baseURLW, {
+                date:name,
+
+            }).then(response => {
+            setError("");
+            setMessage(response);
+            setairtime(response.data.airtimes);
+            setairtimec(response.data.airtimec);
+            setdata(response.data.datems);
+            setdatac(response.data.datamc);
+            setName(response.data.date);
+            console.log(response.data);
+
+            setMessage(response.data.message);
+
+            setLoading(false);
+        });
+    }
+
+
+
+    const handleSubmitmonhly  = async () =>  {
+        setLoading(true);
+
+        axios
+            .post(baseURLM, {
                 date:name,
 
             }).then(response => {
@@ -113,11 +134,11 @@ export default function Mreport({color}) {
     return (
         <>
             <div className="flex flex-wrap">
-                <div className="w-full lg:w-8/12 px-4">
+                <div className="w-full lg:w-10/12 px-5">
                     <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
                         <div className="rounded-t bg-white mb-0 px-6 py-6">
                             <div className="text-center flex justify-between">
-                                <h6 className="text-blueGray-700 text-xl font-bold">Monthly Report</h6>
+                                <h6 className="text-blueGray-700 text-xl font-bold">Report</h6>
                                 <button
                                     className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                     type="button"
@@ -223,6 +244,70 @@ export default function Mreport({color}) {
                     </div>
 
                 </div>
+
+
+                {/*MONTHLY REPORT*/}
+
+                <div className="w-full lg:w-4/12 px-4">
+                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+                        <div className="px-6">
+                            <div className="flex flex-wrap justify-center">
+                                <div className="w-full px-4 flex justify-center">
+                                    <div className="relative">
+                                        <i className="fa fa-calendar-day " style={{fontSize: "100px"}}></i>
+                                        {/*<img*/}
+                                        {/*    alt="..."*/}
+                                        {/*    src={gh}*/}
+                                        {/*    className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"*/}
+                                        {/*/>*/}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="text-center mt-12">
+                                <ul className="list-group">
+                                    <form>
+                                        <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                                            Select Month
+                                        </h6>
+                                        <div className="flex flex-wrap">
+
+                                            <div className="w-full ">
+                                                <div className="relative w-full mb-3">
+                                                    <label
+                                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password"
+                                                    >
+                                                        Calender
+                                                    </label>
+                                                    <input
+                                                        type="month"
+                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                        value={name} onChange={(e) => handleInputChange(e)}
+                                                        id="name"
+                                                        required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" onClick={handleSubmitmonhly}
+                                                className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                            Search
+                                        </button>
+                                        <hr className="mt-6 border-b-1 border-blueGray-300"/>
+                                    </form>
+                                </ul>
+
+                                <br></br>
+                                <br></br>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                {/*DAILY REPORT*/}
                 <div className="w-full lg:w-4/12 px-4">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
                         <div className="px-6">
@@ -243,35 +328,34 @@ export default function Mreport({color}) {
 
                             <div className="text-center mt-12">
                                 <ul className="list-group">
-                                        <form>
-                                            <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-                                                Select Month
-                                            </h6>
-                                            <div className="flex flex-wrap">
-
-                                                <div className="w-full ">
-                                                    <div className="relative w-full mb-3">
-                                                        <label
-                                                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                                                            htmlFor="grid-password"
-                                                        >
-                                                           Calender
-                                                        </label>
-                                                        <input
-                                                            type="month"
-                                                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                                                            value={name} onChange={(e) => handleInputChange(e)}
-                                                            id="name"
-                                                            required/>
-                                                    </div>
+                                    <form>
+                                        <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                                            Select Date
+                                        </h6>
+                                        <div className="flex flex-wrap">
+                                            <div className="w-full ">
+                                                <div className="relative w-full mb-3">
+                                                    <label
+                                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password"
+                                                    >
+                                                        Calender
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                        value={name} onChange={(e) => handleInputChange(e)}
+                                                        id="name"
+                                                        required/>
                                                 </div>
                                             </div>
-                                            <button type="button" onClick={handleSubmit}
-                                                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
-                                               Search
-                                            </button>
-                                            <hr className="mt-6 border-b-1 border-blueGray-300"/>
-                                        </form>
+                                        </div>
+                                        <button type="button" onClick={handleSubmitdaily}
+                                                className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                            Search
+                                        </button>
+                                        <hr className="mt-6 border-b-1 border-blueGray-300"/>
+                                    </form>
                                 </ul>
 
                                 <br></br>
@@ -284,6 +368,74 @@ export default function Mreport({color}) {
                     </div>
 
                 </div>
+
+                {/*WEEKLY REPORT*/}
+                <div className="w-full lg:w-4/12 px-4">
+                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+                        <div className="px-6">
+                            <div className="flex flex-wrap justify-center">
+                                <div className="w-full px-4 flex justify-center">
+                                    <div className="relative">
+                                        <img
+                                            alt="..."
+                                            src={gh}
+                                            className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+
+                            <div className="text-center mt-12">
+                                <ul className="list-group">
+
+                                    <form>
+                                        <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+                                            Select Week
+                                        </h6>
+                                        <div className="flex flex-wrap">
+
+                                            <div className="w-full ">
+                                                <div className="relative w-full mb-3">
+                                                    <label
+                                                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                        htmlFor="grid-password"
+                                                    >
+                                                        Calender
+                                                    </label>
+                                                    <input
+                                                        type="week"
+                                                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                        value={name} onChange={(e) => handleInputChange(e)}
+                                                        id="name"
+                                                        required/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" onClick={handleSubmitweekly}
+                                                className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                            Search
+                                        </button>
+                                        <hr className="mt-6 border-b-1 border-blueGray-300"/>
+                                    </form>
+
+                                </ul>
+
+                                <br></br>
+                                <br></br>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
             </div>
 
         </>
