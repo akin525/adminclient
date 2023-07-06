@@ -254,15 +254,18 @@ export default function Mreport({color}) {
                             <div className="flex flex-wrap justify-center">
                                 <div className="w-full px-4 flex justify-center">
                                     <div className="relative">
-                                        <i className="fa fa-calendar-day " style={{fontSize: "100px"}}></i>
-                                        {/*<img*/}
-                                        {/*    alt="..."*/}
-                                        {/*    src={gh}*/}
-                                        {/*    className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"*/}
-                                        {/*/>*/}
+                                        {/*<i className="fa fa-calendar-day " style={{fontSize: "100px"}}></i>*/}
+                                        <img
+                                            alt="..."
+                                            src={gh}
+                                            className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+                                        />
                                     </div>
                                 </div>
                             </div>
+                            <br></br>
+                            <br></br>
+                            <br></br>
                             <div className="text-center mt-12">
                                 <ul className="list-group">
                                     <form>

@@ -21,7 +21,7 @@ export default function Alluser({color}) {
     const baseURL1 = "https://admin.savebills.com.ng/api/auth/dashboard";
     const [modalShow, setModalShow] = React.useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 10; // Number of items to display per page
+    const perPage = 30; // Number of items to display per page
 
 
     const handleSearch = event => {
@@ -49,7 +49,8 @@ export default function Alluser({color}) {
                 setdatass(response.data.users);
                 settotaluser(response.data.totaluser);
                 settotalreseller(response.data.reseller);
-
+                const sortedData = response.data.users.sort((a, b) => b.id - a.id);
+                setdatass(sortedData);
                 setLoading(false);
 
             });

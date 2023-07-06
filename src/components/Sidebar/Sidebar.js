@@ -401,53 +401,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                   }
               ></i>{" "}
-            Monthly Report
-            </Link>
-          </li>
-              <li className="items-center">
-                <Link
-                    onClick={() => setCollapseShow("hidden")}
-
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (window.location.href.indexOf("/wreport") !== -1
-                          ? "text-lightBlue-500 hover:text-lightBlue-600"
-                          : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                    to="/wreport"
-                >
-              <i
-                  className={
-                    "fas fa-bookmark mr-2 text-sm " +
-                    (window.location.href.indexOf("/wreport") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                  }
-              ></i>{" "}
-            Weekly Report
-            </Link>
-          </li>
-              <li className="items-center">
-                <Link
-                    onClick={() => setCollapseShow("hidden")}
-
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (window.location.href.indexOf("/dreport") !== -1
-                          ? "text-lightBlue-500 hover:text-lightBlue-600"
-                          : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                    to="/dreport"
-                >
-              <i
-                  className={
-                    "fas fa-bookmark mr-2 text-sm " +
-                    (window.location.href.indexOf("/dreport") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                  }
-              ></i>{" "}
-            Daily Report
+            Get Report
             </Link>
           </li>
             </ul>

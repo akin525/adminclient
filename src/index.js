@@ -45,6 +45,7 @@ ReactDOM.render(
       <Route path="/deposit" exact component={Admin} />
       <Route path="/finduser" exact component={Admin} />
       <Route path="/pending" exact component={Admin} />
+      <Route path="/findpurchase" exact component={Admin} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
     </Switch>

@@ -32,6 +32,7 @@ import Mreport from "../views/admin/mreport";
 import wreport from "../views/admin/wreport";
 import dreport from "../views/admin/dreport";
 import Pending from "../views/admin/pending";
+import find from "../views/admin/find";
 export default function Admin() {
   return (
     <>
@@ -65,6 +66,7 @@ export default function Admin() {
             <Route path="/dreport" exact component={dreport} />
             <Route path="/product" exact component={Product} />
             <Route path="/pending" exact component={Pending} />
+            <Route path="/findpurchase" exact component={find} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
           <FooterAdmin />

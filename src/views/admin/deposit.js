@@ -8,6 +8,7 @@ import gh from "lg.png";
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import {Link} from "react-router-dom";
 
 
 const customStyles = {
@@ -102,7 +103,8 @@ export default function Deposit({color}) {
                 setthreedaysdepo(response.data.threedayDepo);
                 setfourdaysdepo(response.data.fourdayDepo);
                 setaweekdepo(response.data.aweekDepo);
-
+                const sortedData = response.data.deposit.sort((a, b) => b.id - a.id);
+                setdatass(sortedData);
                 setLoading(false);
                 console.log(response.data);
 
@@ -515,7 +517,7 @@ export default function Deposit({color}) {
                                                 {datab.createdAt}
                                             </td>
                                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                              <i className="fa fa-eye"></i>
+                                                <Link to={"/profile?user=" +datab.username}>   <i className="fa fa-eye"></i></Link>
                                             </td>
                                         </tr>
                                     ))}

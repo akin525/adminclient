@@ -22,7 +22,7 @@ export default function Purchase({color}) {
 
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 20; // Number of items to display per page
+    const perPage = 30; // Number of items to display per page
 
 
     let token=localStorage.getItem('dataKey');
@@ -55,6 +55,8 @@ export default function Purchase({color}) {
                 setthreedaysbill(response.data.threedaybill);
                 setfourdaysbill(response.data.fourdaybill);
                 setaweekbill(response.data.aweekbill);
+                const sortedData = response.data.all.sort((a, b) => b.id - a.id);
+                setdatass(sortedData);
                 setLoading(false);
 
                 console.log(response.data);

@@ -42,7 +42,8 @@ export default function Pending({color}) {
             })
             .then(response => {
                 setdatass(response.data.all);
-
+                const sortedData = response.data.all.sort((a, b) => b.id - a.id);
+                setdatass(sortedData);
                 setLoading(false);
 
             });
