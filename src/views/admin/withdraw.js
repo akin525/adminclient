@@ -163,7 +163,7 @@ export default function Withdraw() {
                 setMessage(response);
                 console.log("response");
                 console.log(response);
-                if (response.data.status === "0") {
+                if (response.data.success === "0") {
                     setError(response.data.message);
                     swal({
                         title: "Fail",
