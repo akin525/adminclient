@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
 
-import axios from "axios";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Link } from "react-router-dom";
-import swal from "sweetalert";
 
 
-export default function find({color}) {
-
-
+export default function checktransaction({color}) {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [userid, setuserid] = useState("");
+    const [idm,setidm] = useState("");
+    const [datass, setdatass]=useState([])
+    const baseURL2 = "https://admin.savebills.com.ng/api/auth/pending";
+    const baseURL1 = "https://admin.savebills.com.ng/api/auth/approve";
+    const baseURL = "https://admin.savebills.com.ng/api/auth/reverse";
+    const [modalShow, setModalShow] = React.useState(false);
     const [loading, setLoading]=useState(false);
-
+    const [currentPage, setCurrentPage] = useState(0);
+    const perPage = 10; // Number of items to display per page
     return (
 
         <>
@@ -34,7 +36,7 @@ export default function find({color}) {
                                             (color === "light" ? "text-blueGray-700" : "text-white")
                                         }
                                     >
-                                        Purchase History
+
                                     </h3>
                                 </div>
                             </div>
@@ -43,7 +45,7 @@ export default function find({color}) {
                             <input
                                 type="text"
                                 placeholder="Find Transaction..."
-
+                                className="form-control"
                             />
                             <button type="button" className="btn btn-info"><i className="fa fa-search"></i>Find </button>
                         </div>
