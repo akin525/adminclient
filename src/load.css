@@ -2821,3 +2821,24 @@ input:checked + .slider:before {
         margin: 5px;
     }
 }
+
+/* Basic styles for the modal */
+.modal {
+    display: block; /* Change to 'none' to initially hide the modal */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fcfcfc;
+    width: 60%;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 5px;
+}

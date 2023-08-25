@@ -1,12 +1,8 @@
-
-
 import React, {useState} from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import CardSettings from "../../components/Cards/CardSettings";
 import CardProfile from "../../components/Cards/CardProfile";
-
-
 export default function Withdraw() {
     const [network, setnetwork] = useState("");
     const [productid, setproductid] = useState("");
@@ -52,7 +48,6 @@ export default function Withdraw() {
     }, [token]);
 
     const handledata  = async (selected) =>  {
-
 
         try {
 

@@ -13,23 +13,109 @@ export default function Product({color}) {
     const [amount,setamount] = useState("");
     const baseURL2 = "https://admin.savebills.com.ng/api/auth/product";
     const baseURL = "https://admin.savebills.com.ng/api/auth/switch";
+    const baseURL3 = "https://admin.savebills.com.ng/api/auth/updatepro";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 10; // Number of items to display per page
+    const perPage = 30; // Number of items to display per page
 
     let token=localStorage.getItem('dataKey');
 
     const handleSearch = event => {
         setSearchTerm(event.target.value);
     };
+    const [productid, setproductid] = useState('');
+    const [tamount, settamount] = useState('');
+    const [ramount, setramount] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState({ id: null, name: '' });
+
+    const openModal = (datab,) => {
+        setSelectedUser(datab);
+        setIsModalOpen(true);
+        // console.log(datab);
+        setproductid(datab.id);
+    };
+
+
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const ro= () => {
+        swal({
+                 title: 'Processing',
+                 text: 'Please wait...',
+                 icon: 'info',
+                 allowOutsideClick: false,
+                 showConfirmButton: false
+             });
+    }
+    const saveChanges = () => {
+       ro(true);
+        try {
+            axios
+                .post(baseURL3, {
+
+                    productid:productid,
+                    tamount:tamount,
+                    ramount:ramount,
+                },{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    },
+
+                }).then(response => {
+                ro(false);
+                if (response.data.status === "0") {
+                    setError(response.data.message);
+                    swal({
+                        title: "Fail",
+                        text: response.data.message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    })
+
+                }else{
+                    setMessage(response.data.message);
+                    // const [cookies, setCookie] = useCookies(response.data.username);
+                    swal({
+                        title: "Success",
+                        text: response.data.message,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    }).then(() => {
+                        window.location.reload(); // Reload the page
+                    });
+                }
+                // setPost(response.data);
+            });
+        }catch (e) {
+            console.log(e);
+            console.log("e.data");
+            console.log(e.data);
+            setError("An error occured. Check your input and try again");
+        }
+        // Add code here to save changes and update user data
+        closeModal();
+    };
+
+
 
     const handleInputChange = (e) => {
         const {id , value} = e.target;
 
         if(id === "id1"){
             setid1(value);
+        }
+
+        if(id === "tamount"){
+            settamount(value);
+        }
+        if(id === "ramount"){
+            setramount(value);
         }
 
     }
@@ -243,16 +329,7 @@ export default function Product({color}) {
                                         >
                                            Reseller Amount
                                         </th>
-                                        <th
-                                            className={
-                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                                                (color === "light"
-                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                                            }
-                                        >
-                                            Status
-                                        </th>
+
                                         <th
                                             className={
                                                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -262,6 +339,16 @@ export default function Product({color}) {
                                             }
                                         >
                                             Action
+                                        </th>
+                                        <th
+                                            className={
+                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                                (color === "light"
+                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                                            }
+                                        >
+                                            Status
                                         </th>
 
                                         <th
@@ -319,25 +406,87 @@ export default function Product({color}) {
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                     {datab.ramount}
                                                 </td>
-                                                {datab.status == "0" ?
-                                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <i className="fas fa-circle text-warning mr-2"></i> Not-Active
-                                                    </td> : true}
-                                                {datab.status == "1" ?
-                                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <i className="fas fa-circle text-success mr-2"></i> Active
-                                                    </td> : true}
+
                                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    <i className="fas fa-pen"></i>
+                                                    <button type="button" className="btn btn-info" onClick={() => openModal(datab)}>Edit</button>
                                                 </td>
-
-
+                                                    {datab.status == "0" ?
+                                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                            <i className="fas fa-circle text-warning mr-2"></i> Not-Active
+                                                        </td> : true}
+                                                    {datab.status == "1" ?
+                                                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                            <i className="fas fa-circle text-success mr-2"></i> Active
+                                                        </td> : true}
                                             </tr>
                                         ))
                                     }
                                     </tbody>
                                 </table>
                             }
+
+                            {isModalOpen && (
+                                <div className="modal">
+                                    <div className="modal-content">
+
+                                        <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                                            <form>
+                                                <center>
+
+                                                    <div className="flex flex-wrap">
+                                                        <h3 className="text-success">Product Name: {selectedUser.plan}</h3>
+                                                        <br/>
+                                                        <br/>
+                                                        <div className="w-full  px-4">
+                                                            <div className="relative w-full mb-3">
+                                                                <label
+                                                                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                                    htmlFor="grid-password"
+                                                                >
+                                                                   Selling Amount
+                                                                </label>
+                                                                <input
+                                                                    type="number"
+                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                                    id="tamount" value={tamount} onChange={(e) =>handleInputChange(e)}
+                                                                    required/>
+                                                                <input type="hidden" id="productid" value={selectedUser.id} onChange={e => setSelectedUser({ ...selectedUser, id: e.target.value })} />
+                                                            </div>
+                                                            <div className="relative w-full mb-3">
+                                                                <label
+                                                                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                                                                    htmlFor="grid-password"
+                                                                >
+                                                                   Reseller Amount
+                                                                </label>
+                                                                <input
+                                                                    type="number"
+                                                                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                                                    id="ramount" value={ramount}  onChange={(e) => handleInputChange(e)}
+                                                                    required/>
+                                                            </div>
+                                                            <button  type="button" className="btn btn-success" onClick={saveChanges}>
+                                                                Update Now
+                                                            </button>
+                                                            <br/>
+                                                            <br/>
+                                                            <button className="btn btn-danger" onClick={closeModal}>Cancel</button>
+                                                        </div>
+                                                        <hr className="mt-6 border-b-1 border-blueGray-300"/>
+                                                    </div>
+                                                </center>
+                                            </form>
+                                        </div>
+
+                                        {/*<h2>Edit User</h2>*/}
+                                        {/*<p>ID: {selectedUser.id}</p>*/}
+                                        {/*<label htmlFor="newName">New Name:</label>*/}
+                                        {/*<br/>*/}
+                                        {/*<button className="btn btn-success" onClick={saveChanges}>Save</button>*/}
+                                        {/*<button className="btn btn-danger" onClick={closeModal}>Cancel</button>*/}
+                                    </div>
+                                </div>
+                            )}
 
 
                             {/* Add the pagination component */}
