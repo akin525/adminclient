@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import axios from "axios";
 import gh from 'lg.png'
+import swal from "sweetalert";
 
 export default function Purchase({color}) {
     const [userid, setuserid] = useState("");
@@ -106,25 +107,55 @@ export default function Purchase({color}) {
 
     const handleReprocess = async ()=>  {
 
-        alert([selectedRows]);
+        // alert([selectedRows]);
 
-        // try {
-        //
-        //     await axios
-        //         .post(baseURL3, {
-        //
-        //             userId: userid,
-        //             amount: amount,
-        //             productid: selectedRows,
-        //         }, {
-        //             headers: {
-        //                 Authorization: `Bearer ${token}`
-        //             },
-        //
-        //         })
-        // }catch (e) {
-        //
-        // }
+        try {
+
+            await axios
+                .post(baseURL3, {
+
+                    userId: userid,
+                    productid: selectedRows,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+
+                }).then(response => {
+                    setError("");
+                    setMessage(response);
+                    setloading(false);
+                    if (response.data.status === "0") {
+                        setError(response.data.message);
+                        swal({
+                            title: "Fail",
+                            text: response.data.message,
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        }).then(function () {
+                            // Redirect the user
+                            window.location.href = "/airtime";
+                        });
+
+
+                    }else{
+                        setMessage(response.data.message);
+                        // const [cookies, setCookie] = useCookies(response.data.username);
+                        swal({
+                            title: "Success",
+                            text: response.data.message,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then(function () {
+                            // Redirect the user
+                            window.location.href = "/dashboard";
+                        });
+                    }
+                    // setPost(response.data);
+                });
+        }catch (e) {
+
+        }
     }
 
     const offset = currentPage * perPage;
