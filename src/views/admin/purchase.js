@@ -26,6 +26,7 @@ export default function Purchase({color}) {
     const [currentPage, setCurrentPage] = useState(0);
     const perPage = 100; // Number of items to display per page
 
+    const [isLoading, setIsLoading] = useState(false);
 
     let token=localStorage.getItem('dataKey');
     const [selectedRows, setSelectedRows] = useState([]);
@@ -108,7 +109,7 @@ export default function Purchase({color}) {
     const handleReprocess = async ()=>  {
 
         // alert([selectedRows]);
-
+        setIsLoading(true);
         try {
 
             await axios
@@ -124,7 +125,7 @@ export default function Purchase({color}) {
                 }).then(response => {
                     setError("");
                     setMessage(response);
-                    setloading(false);
+                    setIsLoading(false);
                     if (response.data.status === "0") {
                         setError(response.data.message);
                         swal({
@@ -134,7 +135,7 @@ export default function Purchase({color}) {
                             confirmButtonText: "OK",
                         }).then(function () {
                             // Redirect the user
-                            window.location.href = "/airtime";
+                            // window.location.href = "/airtime";
                         });
 
 
@@ -377,6 +378,8 @@ export default function Purchase({color}) {
                 <button type="button" onClick={handleReprocess} className="btn btn-info m-2">
                     <i className="fa fa-marker"></i> Re-process Selected
                 </button>
+                {isLoading && <LinearLoader />}
+
                 <button type="button" className="btn btn-success m-2">
                     <i className="fa fa-map-marked-alt"></i>Mark-Success Selected
                 </button>
@@ -407,6 +410,7 @@ export default function Purchase({color}) {
                                 </div>
                             </div>
                         </div>
+
                         <div className="block w-full overflow-x-auto">
                             {/* Projects table */}
 
@@ -613,3 +617,11 @@ const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
 
     );
 };
+function LinearLoader() {
+    return (
+        <div className="linear-loader">
+            <div className="bar"></div>
+        </div>
+    );
+}
+
