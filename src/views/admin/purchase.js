@@ -18,15 +18,33 @@ export default function Purchase({color}) {
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
     const baseURL2 = "https://admin.savebills.com.ng/api/auth/purchase";
+    const baseURL3 = "https://admin.savebills.com.ng/api/auth/reprocess";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 30; // Number of items to display per page
+    const perPage = 100; // Number of items to display per page
 
 
     let token=localStorage.getItem('dataKey');
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [selectAll, setSelectAll] = useState(false);
 
+    const handleCheckboxChange = (id) => {
+        if (selectedRows.includes(id)) {
+            setSelectedRows(selectedRows.filter(rowId => rowId !== id));
+        } else {
+            setSelectedRows([...selectedRows, id]);
+        }
+    };
+    const handleSelectAll = () => {
+        if (selectAll) {
+            setSelectedRows([]);
+        } else {
+            setSelectedRows(datass.map(row => row.id));
+        }
+        setSelectAll(!selectAll);
+    };
     const handleSearch = event => {
         setSearchTerm(event.target.value);
     };
@@ -86,6 +104,28 @@ export default function Purchase({color}) {
         }
     );
 
+    const handleReprocess = async ()=>  {
+
+        alert([selectedRows]);
+
+        // try {
+        //
+        //     await axios
+        //         .post(baseURL3, {
+        //
+        //             userId: userid,
+        //             amount: amount,
+        //             productid: selectedRows,
+        //         }, {
+        //             headers: {
+        //                 Authorization: `Bearer ${token}`
+        //             },
+        //
+        //         })
+        // }catch (e) {
+        //
+        // }
+    }
 
     const offset = currentPage * perPage;
     const currentPageData = filteredData.slice(offset, offset + perPage);
@@ -302,6 +342,18 @@ export default function Purchase({color}) {
                 />
             </div>
 
+            <div className="card-group card-body">
+                <button type="button" onClick={handleReprocess} className="btn btn-info m-2">
+                    <i className="fa fa-marker"></i> Re-process Selected
+                </button>
+                <button type="button" className="btn btn-success m-2">
+                    <i className="fa fa-map-marked-alt"></i>Mark-Success Selected
+                </button>
+                <button type="button" className="btn btn-danger m-2">
+                    <i className="fa fa-map-marker"></i>Reversed Selected
+                </button>
+            </div>
+
             <div className="flex flex-wrap mt-4">
                 <div className="w-full mb-12 px-4">
                     <div
@@ -341,6 +393,20 @@ export default function Purchase({color}) {
                                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                                             }
                                         >
+                                            <input
+                                                type="checkbox"
+                                                checked={selectAll}
+                                                onChange={handleSelectAll}
+                                            />
+                                        </th>
+                                        <th
+                                            className={
+                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                                (color === "light"
+                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                                            }
+                                        >
                                             Username
                                         </th>
                                         <th
@@ -360,7 +426,7 @@ export default function Purchase({color}) {
                                                     ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                                             }
-                                       >
+                                        >
                                             Amount
                                         </th>
                                         <th
@@ -370,7 +436,7 @@ export default function Purchase({color}) {
                                                     ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                                             }
-                                       >
+                                        >
                                             Refid
                                         </th>
                                         <th
@@ -412,44 +478,16 @@ export default function Purchase({color}) {
                                             }
                                         ></th>
                                     </tr>
+
                                     </thead>
                                     <tbody>
                                         {currentPageData.map(datab => (
-                                                <tr key={datab.id}>
-                                                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                                                    <span
-                                                        className={
-                                                            "ml-3 font-bold " +
-                                                            +(color === "light" ? "text-blueGray-600" : "text-white")
-                                                        }
-                                                    >
-                   {datab.username}
-                  </span>
-                                                </th>
-                                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    {datab.plan}
-                                                </td>
-                                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    {datab.amount}
-                                                </td>
-                                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    {datab.refid}
-                                                </td>
-                                                {datab.result == "0" ?
-                                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <i className="fas fa-circle text-warning mr-2"></i> pending
-                                                    </td> : true}
-                                                {datab.result == "1" ?
-                                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <i className="fas fa-circle text-success mr-2"></i> Delivered
-                                                    </td> : true}
-                                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    {datab.phone}
-                                                </td>
-                                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    {datab.createdAt}
-                                                </td>
-                                            </tr>
+                                            <TableRow
+                                                key={datab.id}
+                                                data={datab}
+                                                isSelected={selectedRows.includes(datab.id)}
+                                                onCheckboxChange={handleCheckboxChange}
+                                            />
                                         ))
                                     }
                                     </tbody>
@@ -494,4 +532,53 @@ export default function Purchase({color}) {
             </div>
         </>
     );
-}
+
+
+};
+const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
+    return (
+        <tr key={data.id}>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => onCheckboxChange(data.id)}
+                />
+            </td>
+            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                                    <span
+                                                        className={
+                                                            "ml-3 font-bold " +
+                                                            +(color === "light" ? "text-blueGray-600" : "text-white")
+                                                        }
+                                                    >
+                   {data.username}
+                  </span>
+            </th>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.plan}
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.amount}
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.refid}
+            </td>
+            {data.result == "0" ?
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className="fas fa-circle text-warning mr-2"></i> pending
+                </td> : true}
+            {data.result == "1" ?
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className="fas fa-circle text-success mr-2"></i> Delivered
+                </td> : true}
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.phone}
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.createdAt}
+            </td>
+        </tr>
+
+    );
+};
