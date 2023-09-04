@@ -109,7 +109,7 @@ export default function Purchase({color}) {
     const handleReprocess = async ()=>  {
 
         // alert([selectedRows]);
-        setIsLoading(true);
+        setLoading(true);
         try {
 
             await axios
@@ -124,35 +124,23 @@ export default function Purchase({color}) {
 
                 }).then(response => {
                     setError("");
-                    setMessage(response);
-                    setIsLoading(false);
-                    if (response.data.status === "0") {
-                        setError(response.data.message);
+                    setLoading(false);
+                    const messages = response.data.message;
+                    if (Array.isArray(messages)) {
+                        const formattedMessages = messages.map((messageObject) => {
+                            return `${messageObject.status === '1' ? 'Success' : 'Error'}: ${messageObject.message}`;
+                        });
                         swal({
-                            title: "Fail",
-                            text: response.data.message,
-                            icon: "error",
+                            title: "Response",
+                            text: formattedMessages.join('\n'),
+                            icon: "success",
                             confirmButtonText: "OK",
                         }).then(function () {
                             // Redirect the user
                             // window.location.href = "/airtime";
                         });
 
-
-                    }else{
-                        setMessage(response.data.message);
-                        // const [cookies, setCookie] = useCookies(response.data.username);
-                        swal({
-                            title: "Success",
-                            text: response.data.message,
-                            icon: "success",
-                            confirmButtonText: "OK",
-                        }).then(function () {
-                            // Redirect the user
-                            window.location.href = "/dashboard";
-                        });
                     }
-                    // setPost(response.data);
                 });
         }catch (e) {
 
@@ -376,13 +364,9 @@ export default function Purchase({color}) {
 
             <div className="card-group card-body">
                 <button type="button" onClick={handleReprocess} className="btn btn-info m-2">
-                    <i className="fa fa-marker"></i> Re-process Selected
+                    <i className="fa fa-marker"></i> Re-process Data Selected
                 </button>
                 {isLoading && <LinearLoader />}
-
-                <button type="button" className="btn btn-success m-2">
-                    <i className="fa fa-map-marked-alt"></i>Mark-Success Selected
-                </button>
                 <button type="button" className="btn btn-danger m-2">
                     <i className="fa fa-map-marker"></i>Reversed Selected
                 </button>

@@ -70,7 +70,7 @@ export default function Deposit({color}) {
     const baseURL1 = "https://admin.savebills.com.ng/api/auth/dashboard";
     const [modalShow, setModalShow] = React.useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 10; // Number of items to display per page
+    const perPage = 100; // Number of items to display per page
 
 
     const handleSearch = event => {
