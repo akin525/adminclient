@@ -20,6 +20,7 @@ export default function Purchase({color}) {
     const [amount,setamount] = useState("");
     const baseURL2 = "https://admin.savebills.com.ng/api/auth/purchase";
     const baseURL3 = "https://admin.savebills.com.ng/api/auth/reprocess";
+    const baseURL4 = "https://admin.savebills.com.ng/api/auth/mark";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);
@@ -138,6 +139,43 @@ export default function Purchase({color}) {
                         }).then(function () {
                             // Redirect the user
                             // window.location.href = "/airtime";
+                        });
+
+                    }
+                });
+        }catch (e) {
+
+        }
+    }
+    const handleMark = async ()=>  {
+        setLoading(true);
+        try {
+
+            await axios
+                .post(baseURL4, {
+
+                    userId: userid,
+                    productid: selectedRows,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+
+                }).then(response => {
+                    setError("");
+                    setLoading(false);
+                    const messages = response.data.message;
+                    if (Array.isArray(messages)) {
+                        const formattedMessages = messages.map((messageObject) => {
+                            return `${messageObject.status === '1' ? 'Success' : 'Error'}: ${messageObject.message}`;
+                        });
+                        swal({
+                            title: "Response",
+                            text: formattedMessages.join('\n'),
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then(function () {
+
                         });
 
                     }
@@ -366,8 +404,7 @@ export default function Purchase({color}) {
                 <button type="button" onClick={handleReprocess} className="btn btn-info m-2">
                     <i className="fa fa-marker"></i> Re-process Data Selected
                 </button>
-                {isLoading && <LinearLoader />}
-                <button type="button" className="btn btn-danger m-2">
+                <button type="button" onClick={handleMark} className="btn btn-danger m-2">
                     <i className="fa fa-map-marker"></i>Reversed Selected
                 </button>
             </div>
@@ -601,11 +638,5 @@ const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
 
     );
 };
-function LinearLoader() {
-    return (
-        <div className="linear-loader">
-            <div className="bar"></div>
-        </div>
-    );
-}
+
 

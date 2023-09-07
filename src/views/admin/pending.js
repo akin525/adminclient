@@ -12,16 +12,116 @@ export default function Pending({color}) {
     const [searchTerm, setSearchTerm] = useState('');
     const [userid, setuserid] = useState("");
     const [idm,setidm] = useState("");
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
     const [datass, setdatass]=useState([])
     const baseURL2 = "https://admin.savebills.com.ng/api/auth/pending";
     const baseURL1 = "https://admin.savebills.com.ng/api/auth/approve";
     const baseURL = "https://admin.savebills.com.ng/api/auth/reverse";
+    const baseURL3 = "https://admin.savebills.com.ng/api/auth/reprocess";
+    const baseURL4 = "https://admin.savebills.com.ng/api/auth/mark";
     const [modalShow, setModalShow] = React.useState(false);
     const [loading, setLoading]=useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 10; // Number of items to display per page
+    const perPage = 100; // Number of items to display per page
+
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [selectAll, setSelectAll] = useState(false);
+
+    const handleCheckboxChange = (id) => {
+        if (selectedRows.includes(id)) {
+            setSelectedRows(selectedRows.filter(rowId => rowId !== id));
+        } else {
+            setSelectedRows([...selectedRows, id]);
+        }
+    };
+    const handleSelectAll = () => {
+        if (selectAll) {
+            setSelectedRows([]);
+        } else {
+            setSelectedRows(datass.map(row => row.id));
+        }
+        setSelectAll(!selectAll);
+    };
 
 
+    const handleReprocess = async ()=>  {
+
+        // alert([selectedRows]);
+        setLoading(true);
+        try {
+
+            await axios
+                .post(baseURL3, {
+
+                    userId: userid,
+                    productid: selectedRows,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+
+                }).then(response => {
+                    setError("");
+                    setLoading(false);
+                    const messages = response.data.message;
+                    if (Array.isArray(messages)) {
+                        const formattedMessages = messages.map((messageObject) => {
+                            return `${messageObject.status === '1' ? 'Success' : 'Error'}: ${messageObject.message}`;
+                        });
+                        swal({
+                            title: "Response",
+                            text: formattedMessages.join('\n'),
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then(function () {
+                            // Redirect the user
+                            // window.location.href = "/airtime";
+                        });
+
+                    }
+                });
+        }catch (e) {
+
+        }
+    }
+    const handleMark = async ()=>  {
+        setLoading(true);
+        try {
+
+            await axios
+                .post(baseURL4, {
+
+                    userId: userid,
+                    productid: selectedRows,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+
+                }).then(response => {
+                    setError("");
+                    setLoading(false);
+                    const messages = response.data.message;
+                    if (Array.isArray(messages)) {
+                        const formattedMessages = messages.map((messageObject) => {
+                            return `${messageObject.status === '1' ? 'Success' : 'Error'}: ${messageObject.message}`;
+                        });
+                        swal({
+                            title: "Response",
+                            text: formattedMessages.join('\n'),
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then(function () {
+
+                        });
+
+                    }
+                });
+        }catch (e) {
+
+        }
+    }
 
     const handleSearch = event => {
         setSearchTerm(event.target.value);
@@ -182,6 +282,14 @@ export default function Pending({color}) {
                     value={searchTerm}
                 />
             </div>
+            <div className="card-group card-body">
+                <button type="button" onClick={handleReprocess} className="btn btn-info m-2">
+                    <i className="fa fa-marker"></i> Re-process Data Selected
+                </button>
+                <button type="button" onClick={handleMark} className="btn btn-danger m-2">
+                    <i className="fa fa-map-marker"></i>Mark Successful
+                </button>
+            </div>
 
             <div className="flex flex-wrap mt-4">
                 <div className="w-full mb-12 px-4">
@@ -214,6 +322,20 @@ export default function Pending({color}) {
                                 <table className="items-center w-full bg-transparent border-collapse">
                                     <thead>
                                     <tr>
+                                        <th
+                                            className={
+                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                                (color === "light"
+                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                                            }
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={selectAll}
+                                                onChange={handleSelectAll}
+                                            />
+                                        </th>
                                         <th
                                             className={
                                                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -264,16 +386,7 @@ export default function Pending({color}) {
                                         >
                                             Status
                                         </th>
-                                        <th
-                                            className={
-                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                                                (color === "light"
-                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
-                                            }
-                                        >
-                                            Action
-                                        </th>
+
                                         <th
                                             className={
                                                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -306,40 +419,12 @@ export default function Pending({color}) {
                                     </thead>
                                     <tbody>
                                     {currentPageData.map(datab => (
-                                        <tr key={datab.id}>
-                                            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                   {datab.username}
-
-                                            </th>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {datab.plan}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {datab.amount}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {datab.refid}
-                                            </td>
-                                            {datab.result == "0" ?
-                                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    <i className="fas fa-circle text-warning mr-2"></i> pending
-                                                </td> : true}
-                                            {datab.result == "1" ?
-                                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                    <i className="fas fa-circle text-success mr-2"></i> Delivered
-                                                </td> : true}
-
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                             <button type="button" onClick={()=>handleSubmit1(datab.amount, datab.username, datab.id)} className="btn btn-danger m-4">Reverse</button>
-                                                <button onClick={()=>handleSubmit(datab.id)}  className="btn btn-success">Approve</button>
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {datab.phone}
-                                            </td>
-                                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {datab.createdAt}
-                                            </td>
-                                        </tr>
+                                        <TableRow
+                                            key={datab.id}
+                                            data={datab}
+                                            isSelected={selectedRows.includes(datab.id)}
+                                            onCheckboxChange={handleCheckboxChange}
+                                        />
                                     ))
                                     }
                                     </tbody>
@@ -387,3 +472,50 @@ export default function Pending({color}) {
 
     );
 }
+const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
+    return (
+        <tr key={data.id}>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => onCheckboxChange(data.id)}
+                />
+            </td>
+            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                {data.username}
+
+            </th>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.plan}
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.amount}
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.refid}
+            </td>
+            {data.result == "0" ?
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className="fas fa-circle text-warning mr-2"></i> pending
+                </td> : true}
+            {data.result == "1" ?
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className="fas fa-circle text-success mr-2"></i> Delivered
+                </td> : true}
+
+            {/*<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">*/}
+            {/*    <button type="button" onClick={()=>handleSubmit1(datab.amount, datab.username, datab.id)} className="btn btn-danger m-4">Reverse</button>*/}
+            {/*    <button onClick={()=>handleSubmit(datab.id)}  className="btn btn-success">Approve</button>*/}
+            {/*</td>*/}
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.phone}
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                {data.createdAt}
+            </td>
+        </tr>
+
+    );
+};
+
