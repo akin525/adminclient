@@ -75,8 +75,7 @@ export default function Pending({color}) {
                             icon: "success",
                             confirmButtonText: "OK",
                         }).then(function () {
-                            // Redirect the user
-                            // window.location.href = "/airtime";
+                            window.location.reload();
                         });
 
                     }

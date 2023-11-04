@@ -490,8 +490,14 @@ export default function Profile({color}) {
                                     <b>{userde.account_name1}</b></h5></li>
                                 <li style={a}><h5><b>Account
                                     No:{userde.account_number1}</b></h5></li>
-                                <li style={a}><h5>
-                                    <b>VFD Microfinance Bank Limited</b></h5></li>
+                                {userde.bank == null ?
+                                    <li style={a}><h5>
+                                        <b>Bank: VFD Microfinance Bank Limited</b></h5>
+                                    </li> :
+                                    <li style={a}><h5>
+                                        <b>Bank: {userde.bank}</b></h5>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
