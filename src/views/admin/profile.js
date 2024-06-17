@@ -27,10 +27,10 @@ export default function Profile({color}) {
     const [userde,setuserde] = useState("");
     const [datass, setdatass]=useState([])
     const [billiss, setbilliss]=useState([])
-    const baseURL2 = "https://admin.savebills.com.ng/api/auth/users";
-    const baseURL = "https://admin.savebills.com.ng/api/auth/credit";
-    const baseURL1 = "https://admin.savebills.com.ng/api/auth/debit";
-    const baseURL3 = "https://admin.savebills.com.ng/api/auth/update";
+    const baseURL2 = "https://app.savebills.com.ng/api/auth/users";
+    const baseURL = "https://app.savebills.com.ng/api/auth/credit";
+    const baseURL1 = "https://app.savebills.com.ng/api/auth/debit";
+    const baseURL3 = "https://app.savebills.com.ng/api/auth/update";
     const [username, setusername] = useState("");
     const [name, setname] = useState("");
     const [email, setemail]=useState([])
@@ -463,10 +463,24 @@ export default function Profile({color}) {
                                             <br></br>
                                             <li className="text-info" style={a}><h1 ><b>Personal
                                                 Virtual Account Detail 1</b></h1></li>
-                                            <li className="mt-2"><i className="fa fa-user text-info "></i>
-                                                <b>Account-no</b> : {userde.account_number}</li>
-                                            <li className="mt-2"><i className="fa fa-user text-info "></i>
-                                                <b>Account-Name</b> : {userde.account_name}</li>
+
+
+
+                                            {userde.account_number === "1" ? (
+                                                <button type="button" className="btn btn-primary">Generate Account</button>
+                                            ) : (
+                                                <>
+                                                    <li className="mt-2">
+                                                        <i className="fa fa-user text-info"></i>
+                                                        <b>Account-no</b> : {userde.account_number}
+                                                    </li>
+                                                    <li className="mt-2">
+                                                        <i className="fa fa-user text-info"></i>
+                                                        <b>Account-Name</b> : {userde.account_name}
+                                                    </li>
+                                                </>
+                                            )}
+
                                         </ul>
                                     </div>
                                 </div>
@@ -486,18 +500,36 @@ export default function Profile({color}) {
                             <ul style={ul} className="text-info">
                                 <li style={a}><h3 className=" mb-2"><b>Personal
                                     Virtual Account Detail 2</b></h3></li>
-                                <li  style={a}><h5>
-                                    <b>{userde.account_name1}</b></h5></li>
-                                <li style={a}><h5><b>Account
-                                    No:{userde.account_number1}</b></h5></li>
-                                {userde.bank == null ?
-                                    <li style={a}><h5>
-                                        <b>Bank: VFD Microfinance Bank Limited</b></h5>
-                                    </li> :
-                                    <li style={a}><h5>
-                                        <b>Bank: {userde.bank}</b></h5>
-                                    </li>
-                                }
+                                {userde.account_number1 === "1" ? (
+                                    <button type="button" className="btn btn-primary">Generate Account</button>
+                                ) : (
+                                    <>
+                                        <li style={a}>
+                                            <h5>
+                                                <b>{userde.account_name1}</b>
+                                            </h5>
+                                        </li>
+                                        <li style={a}>
+                                            <h5>
+                                                <b>Account No: {userde.account_number1}</b>
+                                            </h5>
+                                        </li>
+                                        {userde.bank === null ? (
+                                            <li style={a}>
+                                                <h5>
+                                                    <b>Bank: VFD Microfinance Bank Limited</b>
+                                                </h5>
+                                            </li>
+                                        ) : (
+                                            <li style={a}>
+                                                <h5>
+                                                    <b>Bank: {userde.bank}</b>
+                                                </h5>
+                                            </li>
+                                        )}
+                                    </>
+                                )}
+
                             </ul>
                         </div>
                     </div>

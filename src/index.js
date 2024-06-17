@@ -25,7 +25,9 @@ ReactDOM.render(
       {/* add routes without layouts */}
       <Route path="/landing" exact component={Landing} />
       <Route path="/alluser" exact component={Admin} />
+      <Route path="/searchpurchase" exact component={Admin} />
       <Route path="/profile" exact component={Admin} />
+      <Route path="/viewpurchase" exact component={Admin} />
       <Route path="/settings" exact component={Admin} />
       <Route path="/" exact component={Auth} />
       <Route path="/dashboard" exact component={Admin} />

@@ -14,9 +14,9 @@ import CardStats from "../../components/Cards/CardStats";
 import gh from "../../lg.png";
 
 export default function Mreport({color}) {
-    const baseURLD = "https://admin.savebills.com.ng/api/auth/dreport";
-    const baseURLW = "https://admin.savebills.com.ng/api/auth/wreport";
-    const baseURLM = "https://admin.savebills.com.ng/api/auth/report";
+    const baseURLD = "https://app.savebills.com.ng/api/auth/dreport";
+    const baseURLW = "https://app.savebills.com.ng/api/auth/wreport";
+    const baseURLM = "https://app.savebills.com.ng/api/auth/report";
     const [date, setdate] = useState("0");
     const [name, setName] = useState("");
     const [airtime, setairtime] = useState("0");

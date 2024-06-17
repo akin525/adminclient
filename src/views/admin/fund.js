@@ -13,7 +13,7 @@ import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
 import CardStats from "../../components/Cards/CardStats";
 
 export default function Dashboard() {
-    const baseURL = "https://admin.savebills.com.ng/api/auth/dashboard";
+    const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
     const [account_number, setaccount_number] = useState("0");
     const [account_number1, setaccount_number1] = useState("0");
     const [account_name, setaccount_name] = useState("0");

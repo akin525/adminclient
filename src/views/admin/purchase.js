@@ -3,7 +3,9 @@ import React, {useState} from "react";
 import axios from "axios";
 import gh from 'lg.png'
 import swal from "sweetalert";
-
+import { Link } from "react-router-dom";
+import ReactDataGrid from '@inovua/reactdatagrid-community';
+import '@inovua/reactdatagrid-community/index.css';
 export default function Purchase({color}) {
     const [userid, setuserid] = useState("");
     const [error, setError] = useState("");
@@ -18,14 +20,14 @@ export default function Purchase({color}) {
     const [aweekbill, setaweekbill] = useState("0");
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
-    const baseURL2 = "https://admin.savebills.com.ng/api/auth/purchase";
-    const baseURL3 = "https://admin.savebills.com.ng/api/auth/reprocess";
-    const baseURL4 = "https://admin.savebills.com.ng/api/auth/mark";
+    const baseURL2 = "https://app.savebills.com.ng/api/auth/purchase";
+    const baseURL3 = "https://app.savebills.com.ng/api/auth/reprocess";
+    const baseURL4 = "https://app.savebills.com.ng/api/auth/mark";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const perPage = 100; // Number of items to display per page
+    const perPage = 1000; // Number of items to display per page
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -483,6 +485,16 @@ export default function Purchase({color}) {
                                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                                             }
                                         >
+                                            View
+                                        </th>
+                                        <th
+                                            className={
+                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                                (color === "light"
+                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                                            }
+                                        >
                                             Amount
                                         </th>
                                         <th
@@ -615,6 +627,9 @@ const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
                 {data.plan}
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <Link to={"/viewpurchase?id=" +data.id}>  <i className="fa fa-eye"></i></Link>
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 {data.amount}
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -627,6 +642,10 @@ const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
             {data.result == "1" ?
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <i className="fas fa-circle text-success mr-2"></i> Delivered
+                </td> : true}
+            {data.result === "2" ?
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className="fas fa-circle text-primary mr-2"></i> Reversed
                 </td> : true}
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 {data.phone}

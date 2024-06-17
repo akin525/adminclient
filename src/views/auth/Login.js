@@ -2,15 +2,17 @@ import { Link } from "react-router-dom";
 import React, {useState} from "react";
 import axios from "axios";
 import swal from "sweetalert";
+// import { ToastContainer, toast } from 'react-toastify';
+
 import gh from 'lg.png'
 export default function Login() {
-
+  const [loading, setloading]=useState(false);
   const [username, setusername] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [password,setPassword] = useState("");
   const [isloading, setisloading]=useState(false);
-  const baseURL = "https://admin.savebills.com.ng/api/auth/signin";
+  const baseURL = "https://app.savebills.com.ng/api/auth/signin";
 
   const btns = document.querySelectorAll('button');
   btns.forEach((items)=>{
@@ -47,6 +49,7 @@ export default function Login() {
   }
   const handleSubmit  = async () =>  {
       setisloading(true);
+      setloading(true);
 
     try {
       axios
@@ -57,6 +60,8 @@ export default function Login() {
           .then(response => {
             setError("");
             setMessage(response);
+            setloading(false);
+
             setisloading(false);
             if (response.data.status == "0") {
               setError(response.data.message);
@@ -88,132 +93,165 @@ export default function Login() {
   }
   return (
     <>
-      <div className="container mx-auto px-4 h-full">
-        <div className="flex content-center items-center justify-center h-full">
-          <div className="w-full lg:w-4/12 px-4">
-            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-              <div className="rounded-t mb-0 px-6 py-6">
-                <div className="text-center mb-3">
-                  <h6 className="text-blueGray-500 text-sm font-bold">
-                    {/*Sign in with*/}
-                  </h6>
-                </div>
-                <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                     width="200"
-                      src={gh}
-                    />
-                  </button>
-                </div>
-                <hr className="mt-6 border-b-1 border-blueGray-300" />
-              </div>
-              <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div className="text-blueGray-400 text-center mb-3 font-bold">
-                </div>
-                <form>
-                  <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Username
-                    </label>
-                    <input
-                      type="text"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Username"
-                      value={username} onChange = {(e) => handleInputChange(e)} id="username"
-                    />
-                  </div>
+      <div className="show-section">
+        <section className="step1">
+          <div className="step1-inner">
+            <div className="container">
+              <div className="wrapper">
+                <div className="row">
+                  <div className="col-md-7 pe-md-4">
+                    <div className="row">
+                      <div className="col-md-6 tab-100">
 
-                  <div className="relative w-full mb-3">
-                    <label
-                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                      htmlFor="grid-password"
-                    >
-                      Password
-                    </label>
+                        <div className="company">
 
-                    <div  style={{width: "auto",
-                      position: "relative",
-                      box_sizing: "border-box"}}>
-                    <input
-                      type={passwordType}
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
-                      value={password} onChange = {(e) => handleInputChange(e)} id="password" name="password"
-                    />
-                      <i onClick={togglePassword} style={{position: "absolute",
-                        top: "28%",
-                        right: "4%"}} className={`fa ${passwordType === "password" ? "fa-eye-slash" : "fa-eye" }`}></i>
+                          <div className="company_logon text-center">
+                            <img width="50" alt="avatar" src={gh}/>
+                          </div>
 
+                          <div className="company-name">
+                            <h4>Admin Login</h4>
+                            {/*<p>PAY BILLS</p>*/}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6 tab-100">
+
+                        <div className="form_tabs">
+                          <div className="nav nav-tabs" id="form-tabs" role="tablist">
+
+                            {/*<center>*/}
+                            <button className="nav-link active" id="car-insurance-tab" data-bs-toggle="tab"
+                                    data-bs-target="#car-tab" role="tab" aria-controls="car-tab" aria-selected="true">
+                              Login
+                            </button>
+                            {/*</center>*/}
+                            {/*<Link to="/auth/register" className="nav-link">*/}
+                            {/*  Sign Up*/}
+                            {/*</Link>*/}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="tab-content" id="nav-tabContent">
+                      <div className="tab-pane fade show active" id="car-tab" role="tabpanel"
+                           aria-labelledby="car-insurance-tab" tabIndex="0">
+                        {loading ?<div className="overlay">
+                              <div className="loader"></div>
+                            </div>:
+                            <form className="entrance_animation">
+
+                              <div className="main-heading">
+                                Admin
+                                {/*<br/>*/}
+                                {/*Pay Bills*/}
+                              </div>
+                              {/*<ToastContainer/>*/}
+
+                              <br/>
+
+                              <div>
+                                <label className="label-text">Username</label>
+                                <input className="form_input" type="text" name="username" placeholder="Username"
+                                       value={username} onChange={(e) => handleInputChange(e)} id="username"
+                                       required/>
+                              </div>
+                              <div>
+                                <label className="label-text">Password</label>
+                                <div
+                                    style={{
+                                      width: "auto",
+                                      position: "relative",
+                                      box_sizing: "border-box"
+                                    }}>
+                                  <input className="form_input" type={passwordType} name="password"
+                                         value={password} onChange={(e) => handleInputChange(e)} id="password"
+                                         required/>
+                                  <i onClick={togglePassword} style={{
+                                    position: "absolute",
+                                    top: "28%",
+                                    right: "4%"
+                                  }} className={`fa ${passwordType === "password" ? "fa-eye-slash" : "fa-eye"}`}></i>
+
+                                </div>
+                              </div>
+
+                              {/*<Link to="/auth/pass" className="forgot" href="">Forgotten Password?</Link>*/}
+                              <div className="next-btn">
+                                <button type="button" onClick={handleSubmit} className="btn btn-success">Login
+                                </button>
+                              </div>
+                            </form>
+                        }
+
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <label className="inline-flex items-center cursor-pointer">
-                      <input
-                        id="customCheckLogin"
-                        type="checkbox"
-                        className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                      />
-                      <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                        Remember me
-                      </span>
-                    </label>
 
+                  <div className="col-md-5">
+
+                    <div className="sidebar-slider">
+                      <div id="sidebar-slide-2" className="carousel slide" data-bs-ride="carousel">
+                        <div className="carousel-inner">
+                          <div className="carousel-item active">
+                            <div className="carousel-caption">
+
+                              <img alt="slider" src={gh}/>
+
+                              <span>
+								      			SuperAdmin
+								      		</span>
+
+                            </div>
+                          </div>
+                          <div className="carousel-item">
+                            <div className="carousel-caption">
+
+                              <img alt="slider" src={gh}/>
+
+                              <span>
+								      			SuperAdmin
+								      		</span>
+                            </div>
+                          </div>
+                          <div className="carousel-item">
+                            <div className="carousel-caption">
+
+                              <img alt="slider" src={gh}/>
+
+                              <span>
+								      			SuperAdmin
+								      		</span>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="carousel-indicators">
+
+                          <button type="button" data-bs-target="#sidebar-slide-2" data-bs-slide-to="0" className="active"
+                                  aria-current="true" aria-label="Slide 1"></button>
+
+                          <button type="button" data-bs-target="#sidebar-slide-2" data-bs-slide-to="1"
+                                  aria-label="Slide 2"></button>
+
+                          <button type="button" data-bs-target="#sidebar-slide-2" data-bs-slide-to="2"
+                                  aria-label="Slide 3"></button>
+                        </div>
+                      </div>
+                      {/*<div className="bg-shape">*/}
+                      {/*  <img alt="slider" src={gh}/>*/}
+                      {/*</div>*/}
+                    </div>
                   </div>
-
-                  <div className="text-center mt-6">
-                    <button
-                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button" onClick={isloading?null:handleSubmit}
-                    >
-                      Sign In <span className="load loading"></span>
-                    </button>
-                  </div>
-                </form>
-                {/*<div className="row">*/}
-                {/*  <div className="col-sm-3">*/}
-                {/*    <div className="input-group my-4 mx-4">*/}
-                {/*      <input type={passwordType} onChange={handlePasswordChange} value={passwordInput} name="password"*/}
-                {/*             className="form-control" placeholder="Password"/>*/}
-                {/*      <div className="input-group-btn">*/}
-                {/*        <button className="btn btn-outline-primary" onClick={togglePassword}>*/}
-                {/*          {passwordType === "password" ? <i className=" fa-eye-slash"></i> :*/}
-                {/*              <i className="fa-eye"></i>}*/}
-                {/*        </button>*/}
-                {/*      </div>*/}
-                {/*    </div>*/}
-
-                {/*  </div>*/}
-                {/*</div>*/}
-
-              </div>
-            </div>
-            <div className="flex flex-wrap mt-6 relative">
-              <div className="w-1/2">
-                <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-blueGray-200"
-                >
-                  <small>Forgot password?</small>
-                </a>
-              </div>
-              <div className="w-1/2 text-right">
-                {/*<Link to="/auth/register" className="text-blueGray-200">*/}
-                  {/*<small>Create new account</small>*/}
-                {/*</Link>*/}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
+
     </>
   );
 }

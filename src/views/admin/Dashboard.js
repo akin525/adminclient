@@ -20,7 +20,7 @@ export default function Dashboard() {
         }, 2000);
     }, []);
 
-    const baseURL = "https://admin.savebills.com.ng/api/auth/dashboard";
+    const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
 
     const [totaldeposit, setTotaldeposit] = useState("0");
     const [totalbill, setTotalbill] = useState("0");
@@ -114,6 +114,12 @@ export default function Dashboard() {
                 <div className="loader"></div>
             </div> :
             <div className="flex flex-wrap">
+                <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+                    <CardLineChart/>
+                </div>
+                <div className="w-full xl:w-4/12 px-4">
+                    <CardBarChart/>
+                </div>
                 <div className="w-full lg:w-3/12 xl:w-2/12 px-4 mb-3">
                     <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                         <div className="flex-auto p-4">

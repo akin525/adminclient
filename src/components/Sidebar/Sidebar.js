@@ -13,8 +13,8 @@ import UserDropdown from "components/Dropdowns/UserDropdown.js";
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
 
-  const baseURL = "https://admin.savebills.com.ng/api/auth/dashboard";
-  const baseURL1 = "https://admin.savebills.com.ng/api/auth/signout";
+  const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
+  const baseURL1 = "https://app.savebills.com.ng/api/auth/signout";
 
 
   const [totaldeposit, setTotaldeposit] = useState("0");
@@ -168,9 +168,9 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Users Pages
-            </h6>
+            {/*<h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">*/}
+            {/*  Users Pages*/}
+            {/*</h6>*/}
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
@@ -264,6 +264,29 @@ export default function Sidebar() {
                             }
                         ></i>{" "}
                         Pending Transaction
+                    </Link>
+                </li>
+              <li className="items-center">
+                    <Link
+                        onClick={() => setCollapseShow("hidden")}
+
+                        className={
+                            "text-xs uppercase py-3 font-bold block " +
+                            (window.location.href.indexOf("/searchpurchase") !== -1
+                                ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                : "text-blueGray-700 hover:text-blueGray-500")
+                        }
+                        to="/searchpurchase"
+                    >
+                        <i
+                            className={
+                                "fas fa-search mr-2 text-sm " +
+                                (window.location.href.indexOf("/searchpurchase") !== -1
+                                    ? "opacity-75"
+                                    : "text-blueGray-300")
+                            }
+                        ></i>{" "}
+                      Search Transaction
                     </Link>
                 </li>
               <li className="items-center">

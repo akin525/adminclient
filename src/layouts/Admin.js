@@ -34,6 +34,8 @@ import dreport from "../views/admin/dreport";
 import Pending from "../views/admin/pending";
 import checktransaction from "../views/admin/checktransaction.js";
 import Withdraw from "../views/admin/withdraw";
+import Viewpurchase from "../views/admin/viewpurchase";
+import Searchpurchase from "../views/admin/searchpurchase";
 export default function Admin() {
   return (
     <>
@@ -46,6 +48,7 @@ export default function Admin() {
           <Switch>
             <Route path="/alluser" exact component={Alluser} />
             <Route path="/profile" exact component={Profile} />
+            <Route path="/viewpurchase" exact component={Viewpurchase} />
             <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/airtime" exact component={Airtime} />
             <Route path="/fund" exact component={fund} />
@@ -68,6 +71,7 @@ export default function Admin() {
             <Route path="/product" exact component={Product} />
             <Route path="/pending" exact component={Pending} />
             <Route path="/findpurchase" exact component={checktransaction} />
+            <Route path="/searchpurchase" exact component={Searchpurchase} />
             <Route path="/withdraw" exact component={Withdraw} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>

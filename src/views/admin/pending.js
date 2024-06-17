@@ -15,11 +15,11 @@ export default function Pending({color}) {
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const [datass, setdatass]=useState([])
-    const baseURL2 = "https://admin.savebills.com.ng/api/auth/pending";
-    const baseURL1 = "https://admin.savebills.com.ng/api/auth/approve";
-    const baseURL = "https://admin.savebills.com.ng/api/auth/reverse";
-    const baseURL3 = "https://admin.savebills.com.ng/api/auth/reprocess";
-    const baseURL4 = "https://admin.savebills.com.ng/api/auth/mark";
+    const baseURL2 = "https://app.savebills.com.ng/api/auth/pending";
+    const baseURL1 = "https://app.savebills.com.ng/api/auth/approve";
+    const baseURL = "https://app.savebills.com.ng/api/auth/reverse";
+    const baseURL3 = "https://app.savebills.com.ng/api/auth/reprocess";
+    const baseURL4 = "https://app.savebills.com.ng/api/auth/mark";
     const [modalShow, setModalShow] = React.useState(false);
     const [loading, setLoading]=useState(false);
     const [currentPage, setCurrentPage] = useState(0);
@@ -288,6 +288,10 @@ export default function Pending({color}) {
                 <button type="button" onClick={handleMark} className="btn btn-danger m-2">
                     <i className="fa fa-map-marker"></i>Mark Successful
                 </button>
+
+                <button type="button" onClick={handleMark} className="btn btn-danger m-2">
+                    <i className="fa fa-map-marker"></i>Reversed Selected
+                </button>
             </div>
 
             <div className="flex flex-wrap mt-4">
@@ -344,6 +348,16 @@ export default function Pending({color}) {
                                             }
                                         >
                                             Username
+                                        </th>
+                                        <th
+                                            className={
+                                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                                (color === "light"
+                                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                                            }
+                                        >
+                                            View
                                         </th>
                                         <th
                                             className={
@@ -486,6 +500,9 @@ const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
 
             </th>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                <Link to={"/viewpurchase?id=" +data.id}>  <i className="fa fa-eye"></i></Link>
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                 {data.plan}
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -501,6 +518,10 @@ const TableRow = ({ data, color, isSelected, onCheckboxChange }) => {
             {data.result == "1" ?
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     <i className="fas fa-circle text-success mr-2"></i> Delivered
+                </td> : true}
+            {data.result == "2" ?
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <i className="fas fa-circle text-primary mr-2"></i> Reversed
                 </td> : true}
 
             {/*<td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">*/}

@@ -13,8 +13,8 @@ import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
 import CardStats from "../../components/Cards/CardStats";
 
 export default function Notification() {
-    const baseURL = "https://admin.savebills.com.ng/api/auth/dashboard";
-    const baseURL1 = "https://admin.savebills.com.ng/api/auth/noti";
+    const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL1 = "https://app.savebills.com.ng/api/auth/noti";
     const [account_number, setaccount_number] = useState("0");
     const [userid, setuserid] = useState("");
     const [account_number1, setaccount_number1] = useState("0");

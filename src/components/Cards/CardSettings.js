@@ -11,7 +11,7 @@ export default function CardSettings() {
   const [message, setMessage] = useState("");
   const [email, setemail]=useState([])
   const [number,setnumber] = useState("");
-  const baseURL1 = "https://admin.savebills.com.ng/api/auth/purchase";
+  const baseURL1 = "https://app.savebills.com.ng/api/auth/purchase";
 
   const btns = document.querySelectorAll('button');
   btns.forEach((items)=>{
@@ -19,7 +19,7 @@ export default function CardSettings() {
       evt.target.classList.add('activeLoading');
     })
   })
-  const baseURL = "https://admin.savebills.com.ng/api/auth/profile";
+  const baseURL = "https://app.savebills.com.ng/api/auth/profile";
   let token=localStorage.getItem('dataKey');
   const [loading, setLoading] = useState(false);
 
