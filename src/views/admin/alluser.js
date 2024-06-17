@@ -58,26 +58,19 @@ export default function Alluser({color}) {
     }, [token]);
 
 
-    const filteredData = datass.filter(
-        person => {
-            if (datass.length ===0) return [];
-            return (
-                person
-                    .username
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())||person
-                    .wallet
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())||person
-                    .createdAt
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase()) ||person
-                    .email
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
-            );
-        }
-    );
+    const filteredData = datass.filter(person => {
+        if (datass.length === 0) return [];
+
+        const searchTermLower = searchTerm.toLowerCase();
+
+        return (
+            (person.username && person.username.toLowerCase().includes(searchTermLower)) ||
+            (person.wallet && person.wallet.toLowerCase().includes(searchTermLower)) ||
+            (person.createdAt && person.createdAt.toLowerCase().includes(searchTermLower)) ||
+            (person.email && person.email.toLowerCase().includes(searchTermLower))
+        );
+    });
+
 
     const offset = currentPage * perPage;
     const currentPageData = filteredData.slice(offset, offset + perPage);
