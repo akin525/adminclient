@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
 import ig from 'images.png';
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 
 import swal from "sweetalert";
 import gh from 'lg.png'
