@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from "react-router-dom";
 import ig from 'images.png';
+import {toast} from "react-toastify";
 
 import swal from "sweetalert";
 import gh from 'lg.png'
@@ -40,6 +41,7 @@ export default function Profile({color}) {
     const [role,setrole] = useState("");
     const [refid,setrefid] = useState("");
     const [refid1,setrefid1] = useState("");
+    const regene="https://app.savebills.com.ng/api/auth/newaccount1";
 
     const a= {
         margin: 5,
@@ -48,6 +50,7 @@ export default function Profile({color}) {
     const ul={
         listStyleType:'square',
     };
+
 
 
     const [user, setuser] = useState("");
@@ -227,7 +230,50 @@ export default function Profile({color}) {
             setError("An error occured. Check your input and try again");
         }
     }
+
+    const handleSubmitacct  = async () =>  {
+        setLoading(true);
+        try {
+            axios
+                .post(regene, {
+                    username:username,
+                })
+                .then(response => {
+                    setError("");
+                    setMessage(response);
+                    setLoading(false);
+
+                    if (response.data.status == "0") {
+                        setError(response.data.message);
+                        // swal({
+                        //   title: "Ooops",
+                        //   text: response.data.message,
+                        //   icon: "error",
+                        //   confirmButtonText: "OK",
+                        // });
+                        toast.error(response.data.message, {
+                            position: "top-center",
+                            autoClose: 3000, // Time in milliseconds, or false to disable autoclose
+                        });
+
+                    }else{
+                        toast.success(response.data.message, {
+                            position: "center",
+                            autoClose: 3000, // Time in milliseconds, or false to disable autoclose
+                        });
+                        window.location.href='/dashboard';
+
+
+                    }
+                    // setPost(response.data);
+                });
+        }catch (e) {
+            setError("An error occured. Check your input and try again");
+        }
+    }
+
     const handleUpdate  = async () =>  {
+
 
         setup(true);
 
@@ -467,7 +513,7 @@ export default function Profile({color}) {
 
 
                                             {userde.account_number === "1" ? (
-                                                <button type="button" className="btn btn-primary">Generate Account</button>
+                                                <button type="button" onClick={handleSubmitacct} className="btn btn-primary">Generate Account</button>
                                             ) : (
                                                 <>
                                                     <li className="mt-2">

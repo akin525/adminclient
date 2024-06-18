@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
+// import 'react-quill/dist/quill.snow.css';
 
 import ig from 'images.png';
 import CardLineChart from "components/Cards/CardLineChart.js";
