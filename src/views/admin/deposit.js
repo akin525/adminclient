@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import Pagination from "react-js-pagination";
 
 // components
 
