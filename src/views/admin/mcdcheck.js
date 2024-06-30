@@ -65,11 +65,22 @@ export default function Mcdcheck({color}) {
 
         const searchParams = new URLSearchParams(window.location.search);
         const referValue = searchParams.get('id');
-        axios.get(`${baseURL2}/${refid}`)
-            .then(response => {
+        axios.get(`${baseURL2}/${refid}`,{
+            headers:{
+                'Authorization': 'Bearer ChBfBAKZXxBhVDM6Vta54LAjNHcpNSzAhUcgmxr274wUetwtgGbbOJ1Uv0HoQckSLK8o9VIs1YlUUzP6ONe7rpXY2W7hg2YlYxcO7fJOP8uUPe3SG8hVKUwbrkkgmX4piw2yipJbY6R1tK5MyIFZYn',
+                    'Content-Type': 'application/json'
+            },
+
+        }).then(response => {
                 setLoading(false);
+                console.log(response);
+                if (response.data.message==="Server Error"){
+                    setLoading(false);
+
+                }
                 if (response.data.data == null){
                     setshow(2);
+
                 } else {
                     setError("");
                     setname(response.data.data.user_name);
