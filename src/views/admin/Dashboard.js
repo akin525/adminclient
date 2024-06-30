@@ -21,6 +21,8 @@ export default function Dashboard() {
     }, []);
 
     const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
+    const Paylonybalance = "https://api.paylony.com/api/v1/wallet_balance";
+    const Mcdbalance = "https://reseller.mcd.5starcompany.com.ng/api/v1/my-balance";
 
     const [totaldeposit, setTotaldeposit] = useState("0");
     const [totalbill, setTotalbill] = useState("0");
@@ -40,9 +42,44 @@ export default function Dashboard() {
     const [message, setMessage] = useState("");
     const [post, setPost] =useState(null);
     const [all, setall] = useState([]);
+    const [mcdbalnce, setmcdbalance] = useState(0);
+    const [mcdcom, setmcdcom] = useState(0);
+    const [paybalnce, setpaybalance] = useState(0);
+    const [paypending, setpaypending] = useState(0);
     let token=localStorage.getItem('dataKey');
+    const pv=()=>{
+        axios
+            .get(Paylonybalance, {
+                headers:{
+                    Authorization: `Bearer sk_live_av30amcd3piinbfm48j0v8iv8sd5hm81rhqikjz`
+                },
+
+            })
+            .then(response => {
+                setpaybalance(response.data.data.balance);
+                setpaypending(response.data.data.pending);
+            });
+
+    }
+    const mc=()=>{
+        axios
+            .get(Mcdbalance, {
+                headers:{
+                    'Authorization': 'Bearer ChBfBAKZXxBhVDM6Vta54LAjNHcpNSzAhUcgmxr274wUetwtgGbbOJ1Uv0HoQckSLK8o9VIs1YlUUzP6ONe7rpXY2W7hg2YlYxcO7fJOP8uUPe3SG8hVKUwbrkkgmX4piw2yipJbY6R1tK5MyIFZYn',
+                    'Content-Type': 'application/json'
+                },
+
+            })
+            .then(response => {
+                setmcdbalance(response.data.data.wallet);
+                setmcdcom(response.data.data.commission);
+            });
+
+    }
     React.useEffect(() => {
         setLoading(true);
+        pv();
+        mc();
         axios
             .get(baseURL, {
                 headers:{
@@ -67,7 +104,6 @@ export default function Dashboard() {
                 setall(response.data.bills);
                 setallock(response.data.allock);
                 setMessage(response.data.message);
-                setmcd(response.data.mcd);
                 setdataprofit(response.data.dataprofit);
                 setpendingt(response.data.pendingtransaction);
                 settodaydeposit(response.data.todaydeposit);
@@ -298,7 +334,91 @@ export default function Dashboard() {
                                         MCD Balance
                                     </h5>
                                     <span className="font-semibold text-xl text-blueGray-700">
-                                               ₦{mcd.toLocaleString()}
+                                               ₦{mcdbalnce.toLocaleString()}
+                                </span>
+                                </div>
+                                <div className="relative w-auto pl-4 flex-initial">
+                                    <div
+                                        className=
+                                            "text-success p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full text-blueGray-500"
+                                    >
+                                        <i className="fa fa-wallet"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="text-sm text-blueGray-400 mt-4">
+
+                                <span className="whitespace-nowrap">Total Users</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full lg:w-3/12 xl:w-2/12 px-4 mb-3">
+                    <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                        <div className="flex-auto p-4">
+                            <div className="flex flex-wrap">
+                                <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                    <h5 className="text-blueGray-400 uppercase font-bold text-xs">
+                                        MCD Commission
+                                    </h5>
+                                    <span className="font-semibold text-xl text-blueGray-700">
+                                               ₦{mcdcom.toLocaleString()}
+                                </span>
+                                </div>
+                                <div className="relative w-auto pl-4 flex-initial">
+                                    <div
+                                        className=
+                                            "text-success p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full text-blueGray-500"
+                                    >
+                                        <i className="fa fa-wallet"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="text-sm text-blueGray-400 mt-4">
+
+                                <span className="whitespace-nowrap">Total Users</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full lg:w-3/12 xl:w-2/12 px-4 mb-3">
+                    <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                        <div className="flex-auto p-4">
+                            <div className="flex flex-wrap">
+                                <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                    <h5 className="text-blueGray-400 uppercase font-bold text-xs">
+                                        Paylony Balance
+                                    </h5>
+                                    <span className="font-semibold text-xl text-blueGray-700">
+                                               ₦{paybalnce.toLocaleString()}
+                                </span>
+                                </div>
+                                <div className="relative w-auto pl-4 flex-initial">
+                                    <div
+                                        className=
+                                            "text-success p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full text-blueGray-500"
+                                    >
+                                        <i className="fa fa-wallet"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="text-sm text-blueGray-400 mt-4">
+
+                                <span className="whitespace-nowrap">Total Users</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full lg:w-3/12 xl:w-2/12 px-4 mb-3">
+                    <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                        <div className="flex-auto p-4">
+                            <div className="flex flex-wrap">
+                                <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
+                                    <h5 className="text-blueGray-400 uppercase font-bold text-xs">
+                                        Paylony Pending
+                                    </h5>
+                                    <span className="font-semibold text-xl text-blueGray-700">
+                                               ₦{paypending.toLocaleString()}
                                 </span>
                                 </div>
                                 <div className="relative w-auto pl-4 flex-initial">

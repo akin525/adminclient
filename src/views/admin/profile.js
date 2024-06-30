@@ -55,6 +55,7 @@ export default function Profile({color}) {
 
 
     const [loading, setLoading] = useState(false);
+    const [loadinga, setLoadinga] = useState(false);
     const [load, setLoad] = useState(false);
     const [up, setup] = useState(false);
 
@@ -78,6 +79,7 @@ export default function Profile({color}) {
             })
             .then(response => {
                 setError("");
+                console.log(response.data.userdetail);
                 setuserde(response.data.userdetail);
                 settotalused(response.data.userdeposit);
                 settotaluseb(response.data.userbill);
@@ -230,7 +232,7 @@ export default function Profile({color}) {
     }
 
     const handleSubmitacct  = async () =>  {
-        setLoading(true);
+        setLoadinga(true);
         try {
             axios
                 .post(regene, {
@@ -239,9 +241,9 @@ export default function Profile({color}) {
                 .then(response => {
                     setError("");
                     setMessage(response);
-                    setLoading(false);
+                    setLoadinga(false);
 
-                    if (response.data.status == "0") {
+                    if (response.data.status === "0") {
                         setError(response.data.message);
                         // swal({
                         //   title: "Ooops",
@@ -326,7 +328,9 @@ export default function Profile({color}) {
     return (
 
         <>
-
+        {loadinga ? <div className="loader-container">
+                <div className="spinner"/>
+            </div> :true}
             <div className="flex flex-wrap">
                 <div className="w-full lg:w-6/12 xl:w-4/12 px-4 mb-3">
                     <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
@@ -508,7 +512,9 @@ export default function Profile({color}) {
                                             <li className="text-info" style={a}><h1 ><b>Personal
                                                 Virtual Account Detail 1</b></h1></li>
 
-
+                                            {loadinga ? <div className="loader-container">
+                                                <div className="spinner"/>
+                                            </div> :true}
 
                                             {userde.account_number === "1" ? (
                                                 <button type="button" onClick={handleSubmitacct} className="btn btn-primary">Generate Account</button>

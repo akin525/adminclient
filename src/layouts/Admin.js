@@ -36,6 +36,7 @@ import checktransaction from "../views/admin/checktransaction.js";
 import Withdraw from "../views/admin/withdraw";
 import Viewpurchase from "../views/admin/viewpurchase";
 import Searchpurchase from "../views/admin/searchpurchase";
+import Mcdcheck from "../views/admin/mcdcheck";
 export default function Admin() {
   return (
     <>
@@ -72,6 +73,7 @@ export default function Admin() {
             <Route path="/pending" exact component={Pending} />
             <Route path="/findpurchase" exact component={checktransaction} />
             <Route path="/searchpurchase" exact component={Searchpurchase} />
+            <Route path="/searchmcd" exact component={Mcdcheck} />
             <Route path="/withdraw" exact component={Withdraw} />
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
