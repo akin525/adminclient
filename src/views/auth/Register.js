@@ -19,8 +19,8 @@ export default function Register() {
   const [password,setPassword] = useState("");
   const [isloading, setisloading]=useState(false);
   const [confirmPassword,setConfirmPassword] = useState("");
-  const baseURL ="https://app.savebills.com.ng/api/auth/signup";
-  // const baseURL ="https://app.savebills.com.ng/api/auth/signup";
+  const baseURL ="https://admin.server.savebills.com.ng/api/auth/signup";
+  // const baseURL ="https://admin.server.savebills.com.ng/api/auth/signup";
   const [passwordType, setPasswordType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");
   const handlePasswordChange =(evnt)=>{

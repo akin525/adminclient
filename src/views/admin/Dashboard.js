@@ -20,7 +20,7 @@ export default function Dashboard() {
         }, 2000);
     }, []);
 
-    const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     const Paylonybalance = "https://api.paylony.com/api/v1/wallet_balance";
     const Mcdbalance = "https://reseller.mcd.5starcompany.com.ng/api/v1/my-balance";
 
@@ -61,21 +61,28 @@ export default function Dashboard() {
             });
 
     }
-    const mc=()=>{
-        axios
-            .get(Mcdbalance, {
-                headers:{
-                    'Authorization': 'Bearer ChBfBAKZXxBhVDM6Vta54LAjNHcpNSzAhUcgmxr274wUetwtgGbbOJ1Uv0HoQckSLK8o9VIs1YlUUzP6ONe7rpXY2W7hg2YlYxcO7fJOP8uUPe3SG8hVKUwbrkkgmX4piw2yipJbY6R1tK5MyIFZYn',
-                    'Content-Type': 'application/json'
-                },
+    const mc = () => {
+        const config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: Mcdbalance,
+            headers: {
+                Authorization: 'Bearer ChBfBAKZXxBhVDM6Vta54LAjNHcpNSzAhUcgmxr274wUetwtgGbbOJ1Uv0HoQckSLK8o9VIs1YlUUzP6ONe7rpXY2W7hg2YlYxcO7fJOP8uUPe3SG8hVKUwbrkkgmX4piw2yipJbY6R1tK5MyIFZYn',
+            },
+        };
 
-            })
+        axios
+            .request(config)
             .then(response => {
+                console.log('Response:', response);
                 setmcdbalance(response.data.data.wallet);
                 setmcdcom(response.data.data.commission);
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
+    };
 
-    }
     React.useEffect(() => {
         setLoading(true);
         pv();

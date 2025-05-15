@@ -19,9 +19,9 @@ export default function Mcdcheck({color}) {
     const [message, setMessage] = useState("");
     const [amount, setamount] = useState("");
     const baseURL2 = "https://reseller.mcd.5starcompany.com.ng/api/v1/my-transaction";
-    const baseURL = "https://app.savebills.com.ng/api/auth/reverseid";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/reverse";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/approve";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/reverseid";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/reverse";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/approve";
     const [username, setusername] = useState("");
     const [name, setname] = useState("");
     const [network, setnetwork]=useState()
@@ -285,7 +285,7 @@ export default function Mcdcheck({color}) {
                         boxShadow:" 0 4px 8px rgba(0, 0, 0, 0.1)",
                     }}>
                         <div className="welcome-text">
-                            <h3 className="text-black font-w600 mb-0">Search Transaction(Data, Airtime, Bills Pay)</h3>
+                            <h3 className="text-black font-w600 mb-0">MCD Server Transaction Search(Data, Airtime, Bills Pay)</h3>
                         </div>
                         <div className="cm-content-body form excerpt" >
                             <form>

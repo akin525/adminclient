@@ -20,9 +20,9 @@ export default function Purchase({color}) {
     const [aweekbill, setaweekbill] = useState("0");
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/purchase";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/reprocess";
-    const baseURL4 = "https://app.savebills.com.ng/api/auth/mark";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/purchase";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/reprocess";
+    const baseURL4 = "https://admin.server.savebills.com.ng/api/auth/mark";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);

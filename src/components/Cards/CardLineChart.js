@@ -3,7 +3,7 @@ import Chart from "chart.js";
 import axios from "axios";
 
 export default function CardLineChart(props) {
-  const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
+  const baseURL = "https://admin.server.savebills.com.ng/api/auth/dashboard";
   let token=localStorage.getItem('dataKey');
 
   React.useEffect(() => {

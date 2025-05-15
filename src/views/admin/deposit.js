@@ -67,8 +67,8 @@ export default function Deposit({color}) {
     const [id,setid] = useState("");
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/alldeposit";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/alldeposit";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     const [modalShow, setModalShow] = React.useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const perPage = 100; // Number of items to display per page

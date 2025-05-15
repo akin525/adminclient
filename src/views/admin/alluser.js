@@ -15,8 +15,8 @@ export default function Alluser({color}) {
     const [message, setMessage] = useState("");
     const [id,setid] = useState("");
     const [datass, setdatass]=useState([])
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/alluser";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/alluser";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     const [modalShow, setModalShow] = React.useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const perPage = 30; // Number of items to display per page

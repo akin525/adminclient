@@ -13,11 +13,11 @@ export default function Pending({color}) {
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const [datass, setdatass]=useState([])
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/pending";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/approve";
-    const baseURL = "https://app.savebills.com.ng/api/auth/reverse";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/reprocess";
-    const baseURL4 = "https://app.savebills.com.ng/api/auth/mark";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/pending";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/approve";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/reverse";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/reprocess";
+    const baseURL4 = "https://admin.server.savebills.com.ng/api/auth/mark";
     const [modalShow, setModalShow] = React.useState(false);
     const [loading, setLoading]=useState(false);
     const [currentPage, setCurrentPage] = useState(0);

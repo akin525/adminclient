@@ -15,9 +15,9 @@ export default function Airtime() {
     const [userid, setuserid] = useState("");
     const [number,setnumber] = useState("");
     const [refid,setrefid] = useState("");
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     const [loading, setloading]=useState(false);
-    const baseURL = "https://app.savebills.com.ng/api/auth/airtime";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/airtime";
     let token=localStorage.getItem('dataKey');
 
 

@@ -17,7 +17,7 @@ export default function Elect() {
     const [refid,setrefid] = useState("");
     const [amount, setamount]=useState("")
     const [number,setnumber] = useState("");
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     function myNewFunction(sel) {
         // alert(sel.options[sel.selectedIndex].id);
         document.getElementById("po").value = (sel.options[sel.selectedIndex].id);
@@ -29,8 +29,8 @@ export default function Elect() {
             evt.target.classList.add('activeLoading');
         })
     })
-    const baseURL = "https://app.savebills.com.ng/api/auth/verifyelect";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/buyelect";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/verifyelect";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/buyelect";
     let token=localStorage.getItem('dataKey');
 
     React.useEffect(() => {

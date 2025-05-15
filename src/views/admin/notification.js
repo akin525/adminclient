@@ -12,10 +12,16 @@ import CardBarChart from "components/Cards/CardBarChart.js";
 import CardPageVisits from "components/Cards/CardPageVisits.js";
 import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
 import CardStats from "../../components/Cards/CardStats";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { ClassicEditor, Bold, Essentials, Italic, Mention, Paragraph, Undo } from 'ckeditor5';
+import { SlashCommand } from 'ckeditor5-premium-features';
+
+import 'ckeditor5/ckeditor5.css';
+import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 
 export default function Notification() {
-    const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/noti";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/dashboard";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/noti";
     const [account_number, setaccount_number] = useState("0");
     const [userid, setuserid] = useState("");
     const [account_number1, setaccount_number1] = useState("0");
@@ -116,6 +122,22 @@ export default function Notification() {
 
     return (
         <>
+            <CKEditor
+                editor={ ClassicEditor }
+                config={ {
+                    toolbar: {
+                        items: [ 'undo', 'redo', '|', 'bold', 'italic' ],
+                    },
+                    plugins: [
+                        Bold, Essentials, Italic, Mention, Paragraph, SlashCommand, Undo
+                    ],
+                    licenseKey: '<YOUR_LICENSE_KEY>',
+                    mention: {
+                        // Mention configuration
+                    },
+                    initialData: '<p>Hello from CKEditor 5 in React!</p>',
+                } }
+            />
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
                 <div className="rounded-t mb-0 px-4 py-3 bg-transparent">
                     <div className="flex flex-wrap items-center">

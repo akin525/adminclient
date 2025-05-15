@@ -12,7 +12,7 @@ export default function Login() {
   const [message, setMessage] = useState("");
   const [password,setPassword] = useState("");
   const [isloading, setisloading]=useState(false);
-  const baseURL = "https://app.savebills.com.ng/api/auth/signin";
+  const baseURL = "https://admin.server.savebills.com.ng/api/auth/signin";
 
   const btns = document.querySelectorAll('button');
   btns.forEach((items)=>{

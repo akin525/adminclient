@@ -19,7 +19,7 @@ export default function Dashboard() {
     const [id,setid] = useState("");
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/allock";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/allock";
     let token=localStorage.getItem('dataKey');
 
     React.useEffect(() => {

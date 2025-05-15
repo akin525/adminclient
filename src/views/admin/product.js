@@ -11,9 +11,9 @@ export default function Product({color}) {
     const [id1,setid1] = useState("");
     const [datass, setdatass]=useState([])
     const [amount,setamount] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/product";
-    const baseURL = "https://app.savebills.com.ng/api/auth/switch";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/updatepro";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/product";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/switch";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/updatepro";
     const [searchTerm, setSearchTerm] = useState('');
 
     const [loading, setLoading] = useState(false);

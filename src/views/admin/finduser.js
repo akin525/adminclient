@@ -17,7 +17,7 @@ export default function Funduser({color}) {
     const [number,setnumber] = useState("");
     const [datass, setdatass]=useState("")
     const [loading, setloading]=useState(false);
-    const baseURL = "https://app.savebills.com.ng/api/auth/finduser";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/finduser";
     let token=localStorage.getItem('dataKey');
 
 

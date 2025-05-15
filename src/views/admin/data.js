@@ -18,8 +18,8 @@ export default function Data() {
     const [refid,setrefid] = useState("");
     const [datass, setdatass]=useState([])
     const [number,setnumber] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/data";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/data";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     function myNewFunction(sel) {
         // alert(sel.options[sel.selectedIndex].id);
         document.getElementById("po").value = (sel.options[sel.selectedIndex].id);
@@ -31,7 +31,7 @@ export default function Data() {
             evt.target.classList.add('activeLoading');
         })
     })
-    const baseURL = "https://app.savebills.com.ng/api/auth/buydata";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/buydata";
     let token=localStorage.getItem('dataKey');
 
     React.useEffect(() => {

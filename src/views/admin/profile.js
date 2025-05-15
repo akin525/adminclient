@@ -26,10 +26,10 @@ export default function Profile({color}) {
     const [userde,setuserde] = useState("");
     const [datass, setdatass]=useState([])
     const [billiss, setbilliss]=useState([])
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/users";
-    const baseURL = "https://app.savebills.com.ng/api/auth/credit";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/debit";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/update";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/users";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/credit";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/debit";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/update";
     const [username, setusername] = useState("");
     const [name, setname] = useState("");
     const [email, setemail]=useState([])
@@ -39,7 +39,7 @@ export default function Profile({color}) {
     const [role,setrole] = useState("");
     const [refid,setrefid] = useState("");
     const [refid1,setrefid1] = useState("");
-    const regene="https://app.savebills.com.ng/api/auth/newaccount1";
+    const regene="https://admin.server.savebills.com.ng/api/auth/newaccount1";
 
     const a= {
         margin: 5,

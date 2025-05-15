@@ -13,8 +13,8 @@ import UserDropdown from "components/Dropdowns/UserDropdown.js";
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
 
-  const baseURL = "https://app.savebills.com.ng/api/auth/dashboard";
-  const baseURL1 = "https://app.savebills.com.ng/api/auth/signout";
+  const baseURL = "https://admin.server.savebills.com.ng/api/auth/dashboard";
+  const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/signout";
 
 
   const [totaldeposit, setTotaldeposit] = useState("0");

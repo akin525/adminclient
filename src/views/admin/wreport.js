@@ -19,7 +19,7 @@ function getCurrentWeek() {
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
 }
 export default function Mreport({color}) {
-    const baseURL = "https://app.savebills.com.ng/api/auth/wreport";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/wreport";
     const [date, setdate] = useState("0");
     const [name, setName] = useState("");
     const [airtime, setairtime] = useState("0");

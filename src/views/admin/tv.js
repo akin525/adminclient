@@ -17,16 +17,16 @@ export default function Tv() {
     const [refid,setrefid] = useState("");
     const [datass, setdatass]=useState([])
     const [number,setnumber] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/tv";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/dashboard";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/tv";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/dashboard";
     const btns = document.querySelectorAll('button');
     btns.forEach((items)=>{
         items.addEventListener('click',(evt)=>{
             evt.target.classList.add('activeLoading');
         })
     })
-    const baseURL = "https://app.savebills.com.ng/api/auth/verifytv";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/buytv";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/verifytv";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/buytv";
     let token=localStorage.getItem('dataKey');
 
     React.useEffect(() => {

@@ -18,10 +18,10 @@ export default function Viewpurchase({color}) {
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const [amount, setamount] = useState("");
-    const baseURL2 = "https://app.savebills.com.ng/api/auth/findpurchase";
-    const baseURL = "https://app.savebills.com.ng/api/auth/reverseid";
-    const baseURL1 = "https://app.savebills.com.ng/api/auth/reverse";
-    const baseURL3 = "https://app.savebills.com.ng/api/auth/approve";
+    const baseURL2 = "https://admin.server.savebills.com.ng/api/auth/findpurchase";
+    const baseURL = "https://admin.server.savebills.com.ng/api/auth/reverseid";
+    const baseURL1 = "https://admin.server.savebills.com.ng/api/auth/reverse";
+    const baseURL3 = "https://admin.server.savebills.com.ng/api/auth/approve";
     const [username, setusername] = useState("");
     const [name, setname] = useState("");
     const [network, setnetwork]=useState()
